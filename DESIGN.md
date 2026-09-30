@@ -1,0 +1,195 @@
+# manim-presentation-pipeline: design
+
+Status: draft for approval. Nothing is built yet.
+
+## Goal
+
+Turn a source (paper, report, thesis, project) into a spoken talk and an animated deck, through
+fixed stages. Agents do the work; the author steers with targeted feedback.
+
+## Principles
+
+1. **The author decides.** Every stage ends with something short for the author to approve.
+2. **Stop and ask.** When a choice is the author's, agents ask a targeted question instead of guessing.
+3. **Check cheaply.** Story on a one-page outline, words by reading aloud, visuals on rough sketches, fixes on stills. Render only when needed.
+4. **Confirm feedback.** Repeat each note back ("slide 7 (B3.2), script: change X") before acting.
+5. **One source file.** The storyboard holds every slide's text and narration; the script and the deck are generated from it.
+6. **Stay true to the source.** Every claim and number comes from the most reliable source available; the source's own figures and terms come first.
+7. **Written to be heard.** Short sentences, one idea per slide. Pace fixed up front. Cut time by removing whole beats.
+8. **Self-contained results.** Script, deck and design system each stand on their own.
+9. **Reproducible.** Everything in git, built with one command, offline, checked automatically.
+10. **Reusable engine.** Only content and look change between talks.
+
+## Starting point
+
+- The source.
+- A brief: audience, length, pace class, the one sentence to remember, what to leave for questions.
+- Optional: existing figures, a house style, the author's standing rules.
+
+## Arrival
+
+- **Script:** PDF with click cues.
+- **Presentation:** animated offline HTML deck with speaker notes, plus a static PDF (one page per click).
+- **Design system:** document, tokens, specimen page.
+- **Backup slides** for questions.
+- All rebuildable with one command.
+
+Done when every stage is approved, a timed read-aloud fits the slot, all checks pass, and every
+review note is addressed or declined.
+
+## Pace classes
+
+| Class | wpm |
+|---|---|
+| slow | 120 |
+| normal | 135 |
+| fast | 150 |
+
+## Stages
+
+Each stage writes a standalone file in its folder (Markdown, PDF or HTML), ends with a checkpoint,
+and is tagged when approved.
+
+| # | Stage | Agent produces | Author checks |
+|---|---|---|---|
+| 0 | Brief | brief from a few targeted questions (with suggested answers) | the brief |
+| 1 | Digest | claims, numbers, figures, terms, limits, gaps, each with its source | must / could / leave out; answers the gaps |
+| 2a | Outline: brainstorm | many small options per decision (hook, thread, peaks, structure, close) | picks per decision |
+| 2b | Outline: consolidate | one page: one sentence, thread, 3 peaks, beats with times, plants and payoffs | the page |
+| 3 | Script | spoken text per beat (spine line + support); expand, then compress on request | timed read-aloud per act (notes, recording or transcript) |
+| 4a | Visual: brainstorm | visual options per beat, each with an animation level (static, motion, scene) | picks per beat |
+| 4b | Visual: consolidate | skeleton, storyboard (frame = click, stable IDs), greybox (standalone HTML, rough boxes) | the greybox |
+| 5 | Design system | 2-3 options, then document, tokens, specimen; start from or save as house style | the specimen |
+| 6 | Build | deck act by act; low-quality drafts (720p24), automatic checks | stills per frame, then a click-through |
+| 7 | Rehearsal (optional) | reviewer notes, echoed back and traced to stages, with a plan | the plan |
+| 8 | Final | final checks, full-quality render (1080p), release | release |
+
+**Digest source order** (most reliable first): raw data and results; the analysis code; the written
+document; notes and summaries. Disagreements are flagged to the author, never resolved silently.
+The written document stays the reference for a claim's wording.
+
+**Script and storyboard:** once the storyboard exists, the script's text lives in it and the script
+is generated from it.
+
+## Feedback and backtracking
+
+1. The author gives notes by slide number.
+2. The agent translates numbers to stable IDs through the conversion table of the build the author
+   reviewed, and repeats each note back with its stage: brief, digest, outline, script, visual,
+   design, build.
+3. The author confirms or corrects.
+4. The fix is made at that stage; everything after it is regenerated.
+5. Only the changed pieces are re-approved.
+6. Every note, its stage, its fix and its commit go into the review log.
+
+## Slide numbers and IDs
+
+- Slides show normal numbers (1, 2, 3).
+- Every frame has a stable ID (B3.2: beat 3, frame 2) used internally.
+- Every build writes a conversion table (number, ID, headline) and shows its build commit small on
+  draft slides, so notes on an old draft map correctly.
+
+## Repository
+
+Cloned or forked; the talk lives inside it. Agent-agnostic: instructions are plain Markdown.
+
+```
+manim-presentation-pipeline/
+  AGENTS.md          entry point for any agent
+  CLAUDE.md          points to AGENTS.md; names which docs to install as Claude skills
+  README.md          setup and quick start
+  LICENSE            MIT
+  pipeline/          the process
+    principles.md
+    stages/          0-brief.md ... 8-final.md
+    feedback.md      echo-back, stages, review log
+    variants.md      cascade rules
+    versioning.md    tags and releases
+    guides/          writing for the ear; storyboards
+    templates/       empty stage files
+  engine/            Python package
+  talk/              the author's presentation
+    source/
+    global/          0-brief/ 1-digest/ 2-outline/ 3-script/ 4-visual/ 5-design/ 6-build/ 7-review/
+    variants/
+      <name>/        only the files that differ from global/
+  scripts/           setup, doctor, native-library bootstrap
+  vendor/            fonts (OFL), reveal.js
+  pyproject.toml  uv.lock
+```
+
+Upstream improvements merge cleanly because the author's content is only under `talk/`.
+
+## Variants
+
+- A variant folder holds only what differs; a file is looked up in the variant first, then in `global/`.
+- Markdown files override whole; TOML files merge key by key.
+- A variant lists its beat order; leaving a beat out removes it.
+- One level only.
+- A change in `global/` lists and rebuilds every variant it affects.
+
+## Versioning
+
+- One commit per step.
+- Stage tags per approval: `global/digest-1`, `<variant>/outline-2`.
+- Release tags per variant: `<variant>/v1`.
+- Release files go to `releases/<variant>/vN/`, outside git.
+
+## CLI: `uv run mpp <command>`
+
+| Command | Does |
+|---|---|
+| `setup` | install what can be installed; nothing is fetched at build time |
+| `doctor` | check Python, cairo, pango, LaTeX, fonts, reveal.js |
+| `new-variant <name>` | create a variant folder |
+| `status [variant]` | approved stages and what's next |
+| `approve <stage> [variant]` | tag a stage as approved |
+| `script [variant]` | generate the script, with timing at the pace class |
+| `build [variant] [--act N] [--final]` | draft or full-quality render |
+| `check [variant]` | frame counts, seams, layout lint |
+| `preview <numbers or IDs, or --changed>` | stills as a standalone file |
+| `review add / list` | the review log |
+| `release [variant]` | final checks, full render, copy to releases, tag |
+
+## Engine
+
+| Module | Does |
+|---|---|
+| `tokens` | reads the design system from `tokens.toml` |
+| `chrome` | headline, slide number, progress spine, depth gauge |
+| `beat` | base scene: one click per frame, handoff to the next beat, speaker notes |
+| `motion`, `camera` | zooms, pans, drawing along paths |
+| `charts` | bars with error bars, legend, metric direction |
+| `build` | check in order, render in parallel with caching; draft or final |
+| `checks` | frame counts, seams, layout lint (text against text, lines and panels) |
+| `tools` | storyboard edits, script generation, preview, review log, conversion tables |
+
+Rules: tokens are data; acts, depth levels and act titles come from the storyboard; talk-specific
+components live in the talk's `6-build/components/`; renders go to a persistent, configurable
+folder; the number of parallel renders is the number of allocated cores.
+
+## Environment
+
+- uv project with a lockfile; `uv sync --offline` where there is no network.
+- cairo and pango: Homebrew (macOS), apt (Linux), or the local RPM bootstrap (clusters without headers).
+- LaTeX: BasicTeX (macOS), TeX Live (Linux), or a user install.
+- Fonts and reveal.js vendored; manim-slides' cache pointed at the vendored copy.
+- screenplain for the script PDF.
+- `mpp doctor` confirms everything.
+
+## Template content
+
+- A template file in each stage folder of `talk/global/`.
+- A default house style in `tokens.toml`.
+- A minimal storyboard (title card and one beat with two clicks) and its scene, so `mpp build`
+  works right after cloning.
+
+## Example
+
+After the pipeline is built, it is run on itself to produce a talk about the pipeline. That talk is
+the main example. No other talk is included.
+
+## Licence and names
+
+- Repository and Python package: `manim-presentation-pipeline`. CLI: `mpp`.
+- MIT for the repository. The vendored font keeps its OFL licence. The author's talk is theirs.
