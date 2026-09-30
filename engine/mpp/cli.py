@@ -10,6 +10,7 @@ COMMANDS = {
     "approve": "tag a stage as approved",
     "script": "generate the script, with timing at the pace class",
     "build": "draft or full-quality render",
+    "greybox": "the greybox page, generated from the storyboard",
     "check": "frame counts, seams, layout lint",
     "preview": "stills as a standalone file",
     "review": "the review log",

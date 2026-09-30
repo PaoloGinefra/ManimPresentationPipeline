@@ -24,11 +24,12 @@ The approved script, outline and digest (for reusable figures).
 1. **Skeleton** (`skeleton.md`): the cast of recurring objects, the canvas, colour roles, the
    interaction policy, and one row per beat.
 2. **Storyboard** (`storyboard.toml`): every beat split into frames, one frame per click. Each
-   frame has its headline, the trigger words, its narration (moved from `script.md`) and a note
-   for the builder. Format in `templates/4-visual/storyboard.toml`.
-3. **Greybox** (`greybox.html`): one standalone page showing every frame as rough boxes, with its
-   plain slide number, its stable ID, its real headline and its narration underneath. No colours
-   beyond grey, no styling. The author must be able to open it with no tools.
+   frame has its headline, the trigger words, its narration (moved from `script.md`), its rough
+   layout (`boxes`) and a note for the builder. Format in `templates/4-visual/storyboard.toml`.
+3. **Greybox**: run `uv run mpp greybox`. It writes `greybox.html`, one standalone page showing
+   every frame as labelled grey boxes, with its plain slide number, its stable ID, its real
+   headline and its narration underneath. It is generated from the storyboard, so it never
+   drifts from it; fix the storyboard, not the page.
 4. Run `uv run mpp script` to regenerate `3-script/script.md` from the storyboard, and check the
    times still fit.
 

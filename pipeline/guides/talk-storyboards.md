@@ -245,18 +245,21 @@ trigger = "the same request comes back"
 narration = """
 **Most of what arrives, we have already answered.** The same request comes back again and
 again."""
+boxes = ["request stream @ left", "repeats highlighted @ left"]
 note = "`stream.highlight(repeats)`. HOLD."
 
 [[B7.frame]]
 head = "The cache fills itself while the system runs."
 trigger = "nobody fills it by hand"
 narration = "..."
+boxes = ["request stream @ left", "cache @ right"]
 note = "`cache.fill(stream)`. Why motion: the cache really fills over time. HOLD."
 
 [[B7.frame]]
 head = "The slowest waits halve once the cache is warm."
 trigger = "look at the slowest requests"
 narration = "..."
+boxes = ["wait histogram @ center"]
 note = "`histogram.morph(before, after)`: the same histogram changing. Lower is better. HOLD."
 ```
 
@@ -267,6 +270,10 @@ carried in and out, and the STAR image on peaks. Frame fields:
 - `trigger`: the spoken words that fire the click;
 - `narration`: what is said on this frame, spine lines in `**bold**`; it becomes the script
   and the speaker notes;
+- `boxes` (optional): the rough layout, a list of `"label @ region"`; the region is one of
+  `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`,
+  `bottom-right`, the area under the headline split three by three. `mpp greybox` draws each as
+  a labelled grey box;
 - `note`: for the builder: component verbs where a component exists, prose where it does not,
   a *why motion* line for any non-trivial animation, and HOLD or AUTO at the end.
 
@@ -294,8 +301,9 @@ A frame that continues without a click is marked AUTO and must depict one contin
    without change needs a new frame or cutting.
 9. **Critique pass.** Run the checklist below; flag to the author any beat whose words and
    picture cannot be made to say the same thing. That is a script problem, not a visual one.
-10. **Greybox.** Draw every frame as rough grey boxes in one standalone HTML page, with its
-    number, ID, headline and narration, for the author to review.
+10. **Greybox.** Give every frame its `boxes` and run `uv run mpp greybox`: one standalone HTML
+    page with every frame as labelled grey boxes, its number, ID, headline and narration, for
+    the author to review.
 
 **Design system** (stage 5). Fix the look for every role and object the skeleton and storyboard
 use, and nothing more.
