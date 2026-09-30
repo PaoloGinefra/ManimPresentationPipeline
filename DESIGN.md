@@ -113,8 +113,9 @@ manim-presentation-pipeline/
     global/          0-brief/ 1-digest/ 2-outline/ 3-script/ 4-visual/ 5-design/ 6-build/ 7-review/
     variants/
       <name>/        only the files that differ from global/
-  scripts/           setup, doctor, native-library bootstrap
+  scripts/           setup.sh, the native-library bootstrap
   vendor/            fonts (OFL), reveal.js
+  examples/          the pipeline run on itself
   pyproject.toml  uv.lock
 ```
 
@@ -141,8 +142,7 @@ Every command takes `-v NAME` for a variant; without it, the main talk (`global`
 
 | Command | Does |
 |---|---|
-| `setup` | install what can be installed; nothing is fetched at build time |
-| `doctor` | check Python, cairo, pango, LaTeX, fonts, reveal.js |
+| `doctor` | check Python, cairo, pango, fonts, reveal.js, LaTeX; render one still |
 | `status` | each stage: approved, changed since, or not started; what is next |
 | `approve <stage>` | tag a stage as approved (refused if uncommitted or unchanged) |
 | `new-variant <name>` | create a variant folder |
@@ -180,11 +180,15 @@ one per variant and quality; the number of parallel renders is the number of all
 ## Environment
 
 - uv project with a lockfile; `uv sync --offline` where there is no network.
-- cairo and pango: Homebrew (macOS), apt (Linux), or the local RPM bootstrap (clusters without headers).
-- LaTeX: BasicTeX (macOS), TeX Live (Linux), or a user install.
-- Fonts and reveal.js vendored; manim-slides' cache pointed at the vendored copy.
+- `scripts/setup.sh` on a new machine: cairo and pango (Homebrew on macOS; the apt command printed
+  on Debian and Ubuntu; `scripts/bootstrap-native.sh`, the local RPM bootstrap, on clusters without
+  root), then `uv sync`, then `mpp doctor`. A shell script, because `uv run mpp` first installs
+  manim, which is the step that needs cairo and pango.
+- LaTeX: BasicTeX (macOS), TeX Live (Linux), or a user install; only for mathematics.
+- Fonts and reveal.js vendored; the build seeds manim-slides' reveal.js cache from `vendor/` before
+  every export (its cache path is platform-specific, so an environment variable is not portable).
 - screenplain for the script PDF.
-- `mpp doctor` confirms everything.
+- `mpp doctor` confirms everything and renders one still.
 
 ## Template content
 

@@ -21,6 +21,7 @@ import hashlib
 import json
 import os
 import pickle
+import shutil
 import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -104,6 +105,25 @@ def environment(talk: Talk, quality: str, lint: bool = False) -> dict:
     if lint:
         env["MPP_LINT"] = "1"
     return env
+
+
+def seed_revealjs() -> Path:
+    """Copy the vendored reveal.js into manim-slides' cache, which its offline export reads before it
+    would download anything. The cache is platform-specific (~/Library/Caches on macOS), so an
+    environment variable pointing it at vendor/ is not portable; seeding it is."""
+    from manim_slides.convert import RevealJS
+    from platformdirs import user_cache_path
+
+    version = RevealJS.model_fields["reveal_version"].default
+    src = REPO / "vendor" / f"revealjs{version}"
+    if not src.is_dir():
+        raise BuildError(f"manim-slides wants reveal.js {version}; vendor/ has no revealjs{version}/")
+    dest = user_cache_path("manim-slides") / f"revealjs{version}"
+    dest.mkdir(parents=True, exist_ok=True)
+    for f in src.iterdir():
+        if not (dest / f.name).exists():
+            shutil.copy2(f, dest / f.name)
+    return dest
 
 
 def run(cmd, cwd, env, log=None, ok=lambda code, text: code == 0) -> bool:
@@ -223,10 +243,11 @@ def build(
 
     if not export:
         return []
-    # 3. export; manim-slides looks for reveal.js in its cache, so point the cache at the vendored copy
+    # 3. export
     if name is None:
         name = f"{quality}-{'-'.join(selected)}" if beats else f"{quality}-act{act}" if act is not None else quality
-    export_env = {**os.environ, "XDG_CACHE_HOME": str(REPO / "vendor" / "cache")}
+    seed_revealjs()
+    export_env = dict(os.environ)
     folder = ["--folder", renders / "slides"]
     out = [exports / f"{name}.html", exports / f"{name}.pdf"]
     if not (

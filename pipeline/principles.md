@@ -61,8 +61,7 @@ Every command takes `-v NAME` for a variant; without it, the main talk (`global`
 
 | Command | Does |
 |---|---|
-| `setup` | install what can be installed; nothing is fetched at build time |
-| `doctor` | check Python, cairo, pango, LaTeX, fonts, reveal.js |
+| `doctor` | check Python, cairo, pango, fonts, reveal.js, LaTeX; render one still |
 | `status` | each stage: approved, changed since, or not started; what is next |
 | `approve <stage>` | tag a stage as approved (refused if uncommitted or unchanged) |
 | `new-variant <name>` | create a variant folder |

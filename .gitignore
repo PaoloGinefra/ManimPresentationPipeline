@@ -5,3 +5,4 @@ build/
 releases/
 media/
 *.tmp
+.native/

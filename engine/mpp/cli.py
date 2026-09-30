@@ -239,8 +239,11 @@ def cmd_release(args):
     print(f"released {rel(talk, dest)}/ and tagged {tag}")
 
 
-def cmd_later(args):
-    sys.exit(f"mpp {args.command}: not implemented yet")
+def cmd_doctor(args):
+    from . import doctor
+
+    if not doctor.run():
+        sys.exit(1)
 
 
 # ---------------------------------------------------------------- parser
@@ -255,8 +258,7 @@ def main() -> None:
         p.set_defaults(fn=fn)
         return p
 
-    command("setup", cmd_later, "install what can be installed", ())
-    command("doctor", cmd_later, "check Python, cairo, pango, LaTeX, fonts, reveal.js", ())
+    command("doctor", cmd_doctor, "check Python, cairo, pango, fonts, reveal.js, LaTeX; render one still", ())
     command("status", cmd_status, "approved stages and what's next")
     p = command("approve", cmd_approve, "tag a stage as approved")
     p.add_argument("stage", help="brief, digest, outline, script, visual, design, build or rehearsal")
