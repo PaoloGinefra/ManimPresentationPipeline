@@ -27,7 +27,8 @@ Create one with `uv run mpp new-variant <name>`.
 
 The storyboard's `order` and `backup` lists decide which beats a variant contains. A variant that
 lists its own `order` drops every beat it leaves out, or moves it to `backup`. It can also
-override single keys of a beat, such as a headline or a narration.
+override single keys of a beat, such as its `title` or `budget_s`. A beat's frames are a list, so
+a variant that changes one frame restates all of that beat's frames.
 
 ## Stages
 

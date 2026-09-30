@@ -1,0 +1,43 @@
+# The default house style. A talk's 5-design/tokens.toml holds only the keys it changes; they merge
+# over these key by key. Sizes and positions are pixels at 1080p; times are seconds.
+
+[colors]
+# Every colour means one thing for the whole talk. The neutrals are required by the engine; the
+# roles are the Okabe-Ito set, safe under the common colour-vision deficiencies.
+ink = "#1B1F2A"            # text, and anything that simply is
+muted = "#5B6170"          # secondary text, captions, the slide number
+structure = "#9AA0AA"      # axes, frames, rules
+faint = "#D5D8DD"          # grid lines, inactive items
+ground = "#FFFFFF"         # the background
+ours = "#0072B2"
+baseline = "#E69F00"
+baseline_text = "#8F5F00"  # the baseline's hue, dark enough for text on the ground
+highlight = "#CC79A7"
+failure = "#D55E00"
+
+[type]
+face = "Source Sans 3"     # registered from vendor/fonts/ and 5-design/fonts/
+tex_packages = ["amsmath", "amssymb", "bm"]
+
+[type.cap]                 # cap height in pixels at 1080p: what the back row actually sees
+title = 64
+headline = 40
+label = 28
+note = 23
+number = 24
+
+[layout]
+margin_x = 96
+margin_top = 64
+margin_bottom = 56
+headline_max_w = 1500      # leaves the slide number clear
+content_top = 220          # below a two-line headline
+content_bottom = 950
+ours_side = "left"         # the 180-degree rule for every comparison
+
+[motion]
+step = 0.8                 # a change inside a beat
+move = 1.1                 # to the next beat
+zoom = 2.4                 # an act break
+focus = 0.4                # dimming the rest before an action
+dim = 0.25                 # opacity of what is not the focus

@@ -20,3 +20,6 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "mpp"
 module-root = "engine"
+
+[tool.ruff]
+line-length = 120

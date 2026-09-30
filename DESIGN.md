@@ -156,18 +156,22 @@ Upstream improvements merge cleanly because the author's content is only under `
 
 | Module | Does |
 |---|---|
-| `tokens` | reads the design system from `tokens.toml` |
-| `chrome` | headline, slide number, progress spine, depth gauge |
+| `project` | the talk's files with the variant cascade; the talk at any git commit |
+| `storyboard` | frames, numbering and the conversion to stable IDs, validation |
+| `tokens` | the design system from `tokens.toml`: engine defaults, then global, then the variant |
+| `chrome` | headline, slide number, draft label, act card, progress spine |
 | `beat` | base scene: one click per frame, handoff to the next beat, speaker notes |
-| `motion`, `camera` | zooms, pans, drawing along paths |
+| `motion`, `camera` | zooms, drawing along paths, a camera that skips off-screen pixels |
 | `charts` | bars with error bars, legend, metric direction |
+| `lint` | text against text and text off the frame, at every click |
 | `build` | check in order, render in parallel with caching; draft or final |
-| `checks` | frame counts, seams, layout lint (text against text, lines and panels) |
-| `tools` | storyboard edits, script generation, preview, review log, conversion tables |
+| `checks` | storyboard problems, missing scenes, lint results, seams |
+| `specimen` | the generic half of the specimen: every token on one still |
+| `tools` | storyboard edits, script generation, greybox, preview, review log |
 
-Rules: tokens are data; acts, depth levels and act titles come from the storyboard; talk-specific
-components live in the talk's `6-build/components/`; renders go to a persistent, configurable
-folder; the number of parallel renders is the number of allocated cores.
+Rules: tokens are data; acts and act titles come from the storyboard; talk-specific components live
+in the talk's `6-build/components/`; renders go to a persistent, configurable folder (`MPP_OUT`),
+one per variant and quality; the number of parallel renders is the number of allocated cores.
 
 ## Environment
 
