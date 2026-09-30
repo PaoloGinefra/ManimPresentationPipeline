@@ -23,7 +23,10 @@ If the brief names a house style, skip step 1.
    - `design.md`: the palette with each colour's role, screen regions, type sizes, the
      transition bound to each weight, and how each recurring object is drawn;
    - `tokens.toml`: the same values as data, read by the engine;
-   - the specimen: one rendered page showing every token and every recurring object.
+   - `specimen.py` (optional): scenes showing a few real frames, the cast, and any options
+     compared side by side;
+   - the specimen: `uv run mpp specimen` renders every token (drawn by the engine) and the
+     scenes in `specimen.py` onto one standalone page, `build/<variant>/specimen.html`.
 3. Check colour-blind safety and projector contrast.
 
 ## Checkpoint

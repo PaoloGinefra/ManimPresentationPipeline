@@ -126,9 +126,14 @@ def build(
     force: bool = False,
     jobs: int | None = None,
     export_only: bool = False,
+    export: bool = True,
     name: str | None = None,
 ) -> list[Path]:
-    """Build the selection and return the exported files. Raises BuildError with the log to read."""
+    """Build the selection and return the exported files. Raises BuildError with the log to read.
+
+    Every beat before the selection is checked too (not rendered): a beat opens on its predecessor's
+    handoff, and a predecessor outside the selection may have changed since it last wrote one.
+    """
     quality = "final" if final else "draft"
     sb = talk.storyboard()
     problems = sb.problems()
@@ -176,8 +181,9 @@ def build(
     if not export_only:
         # 1. check, in order: a beat's key depends on the handoff its predecessor's check just wrote
         check_env = environment(talk, quality, lint=True)
+        upto = [b for b in order[: order.index(selected[-1]) + 1] if b in sources]
         dirty = {}
-        for b in selected:
+        for b in upto:
             k = key(b)
             if force or stamps.get(b) != k:
                 print(f"check  {b}", flush=True)
@@ -192,6 +198,7 @@ def build(
                 if not passed:
                     raise BuildError(f"{b} fails before rendering; see {logs / (b + '.check.log')}")
                 dirty[b] = k
+        dirty = {b: k for b, k in dirty.items() if b in selected}
         # 2. render the changed beats, in parallel: every handoff they open on is already final
         print(f"render {', '.join(dirty) or 'nothing (all up to date)'}", flush=True)
         render_env = environment(talk, quality)
@@ -214,6 +221,8 @@ def build(
                 stamps_file.write_text(json.dumps(stamps, indent=1))
                 print(f"  done {b}", flush=True)
 
+    if not export:
+        return []
     # 3. export; manim-slides looks for reveal.js in its cache, so point the cache at the vendored copy
     if name is None:
         name = f"{quality}-{'-'.join(selected)}" if beats else f"{quality}-act{act}" if act is not None else quality

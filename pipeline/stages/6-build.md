@@ -27,10 +27,12 @@ The approved storyboard and design system.
    `tokens.toml`. No literal colours, sizes or headlines in scene code.
 2. Render a draft: `uv run mpp build --act N`. Drafts are low quality (720p, 24 fps), labelled as
    drafts, and show the build commit small in a corner.
-3. Run `uv run mpp check`: frame counts against the storyboard, seams between beats, layout lint.
+3. Run `uv run mpp check`: storyboard problems, layout lint (text over text, text off the frame),
+   and seams between slides. A beat whose clicks differ from its storyboard frames fails to build.
    Fix every failure before showing anything.
-4. Show the author stills: `uv run mpp preview` (a standalone page, one still per frame).
-5. Apply notes (`feedback.md`), preview only the changed frames (`mpp preview --changed`).
+4. Show the author stills: `uv run mpp preview 7-12` (slide numbers, ranges, IDs like `B3.2`, or
+   whole beats like `B3`). It writes `build/<variant>/preview.html`, one still per slide.
+5. Apply notes (`feedback.md`), then show only what changed: `uv run mpp preview --changed`.
 6. When the stills are approved, the author clicks through the act's draft deck.
 
 Do not edit scene code while a build is running; beats hand state to each other and a mixed

@@ -13,6 +13,7 @@ The approved outline and digest.
 2. **Expand, then compress.** While the story settles, add freely and report the running time in
    one line. Compress only when the author asks, and then cut whole beats with them, not words.
 3. Run `uv run mpp script` for word counts and times per beat and act at the pace class.
+   From stage 4 on, `uv run mpp script --pdf` also writes the script PDF.
 4. **Read-aloud, one act at a time.** The author reads the act aloud and sends back one of:
    - notes;
    - a recording;

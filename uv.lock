@@ -271,12 +271,14 @@ source = { editable = "." }
 dependencies = [
     { name = "manim" },
     { name = "manim-slides" },
+    { name = "screenplain" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "manim", specifier = "==0.21.0" },
     { name = "manim-slides", specifier = "==5.7.0" },
+    { name = "screenplain", extras = ["pdf"], specifier = ">=0.12.0" },
 ]
 
 [[package]]
@@ -640,6 +642,19 @@ wheels = [
 ]
 
 [[package]]
+name = "reportlab"
+version = "5.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "charset-normalizer" },
+    { name = "pillow" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4a/51/dbe28534ae12c852f61be91f039f343305fd1f34f1c66b8de75afae7a525/reportlab-5.0.1.tar.gz", hash = "sha256:ebd13154be1c8515e665de70bd2d303ae9ddc3ef47e44afd5116441ca0283a26", size = 3945711, upload-time = "2026-08-20T13:48:16.461Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/db/cb/dacbc268cb68d0428ea2cbd85266195a9ab3e677449589ddae59bd7542ac/reportlab-5.0.1-py3-none-any.whl", hash = "sha256:1c36e6bb0e71780c72331eba60da7f602e8d4389a8723825af71342e49d791e8", size = 1957258, upload-time = "2026-08-20T13:48:14.026Z" },
+]
+
+[[package]]
 name = "requests"
 version = "2.34.2"
 source = { registry = "https://pypi.org/simple" }
@@ -720,6 +735,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ec/bb/e69e5e628d43f118e0af4fc063c20058faa8635c95a1296764acc8167e27/screeninfo-0.8.1.tar.gz", hash = "sha256:9983076bcc7e34402a1a9e4d7dabf3729411fd2abb3f3b4be7eba73519cd2ed1", size = 10666, upload-time = "2022-09-09T11:35:23.419Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6e/bf/c5205d480307bef660e56544b9e3d7ff687da776abb30c9cb3f330887570/screeninfo-0.8.1-py3-none-any.whl", hash = "sha256:e97d6b173856edcfa3bd282f81deb528188aff14b11ec3e195584e7641be733c", size = 12907, upload-time = "2022-09-09T11:35:21.351Z" },
+]
+
+[[package]]
+name = "screenplain"
+version = "0.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "reportlab" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/de/ca417cf95ea70775dfe29ac373091aa488aa355cc4a4669685288cd4e4db/screenplain-0.12.0.tar.gz", hash = "sha256:3e97c32b5dbce28e9623a364936d7142222837a67d1b9294262684fa13bd4c3c", size = 208891, upload-time = "2026-04-28T21:33:18.512Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7e/fd/c11f0072d85fb0fc4ab4feff133bb9fd7bcff6e6b2e56fdf20e03da0859c/screenplain-0.12.0-py3-none-any.whl", hash = "sha256:35feb87cbb0d99a8a713cd1368b9fcf67e522afbc68390a9d691c5fe77d3d4c0", size = 211944, upload-time = "2026-04-28T21:33:16.499Z" },
 ]
 
 [[package]]

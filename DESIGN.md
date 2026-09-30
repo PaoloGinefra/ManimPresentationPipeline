@@ -137,20 +137,24 @@ Upstream improvements merge cleanly because the author's content is only under `
 
 ## CLI: `uv run mpp <command>`
 
+Every command takes `-v NAME` for a variant; without it, the main talk (`global`).
+
 | Command | Does |
 |---|---|
 | `setup` | install what can be installed; nothing is fetched at build time |
 | `doctor` | check Python, cairo, pango, LaTeX, fonts, reveal.js |
+| `status` | each stage: approved, changed since, or not started; what is next |
+| `approve <stage>` | tag a stage as approved (refused if uncommitted or unchanged) |
 | `new-variant <name>` | create a variant folder |
-| `status [variant]` | approved stages and what's next |
-| `approve <stage> [variant]` | tag a stage as approved |
-| `script [variant]` | generate the script, with timing at the pace class |
-| `build [variant] [--act N] [--final]` | draft or full-quality render |
-| `greybox [variant]` | the greybox page, generated from the storyboard |
-| `check [variant]` | frame counts, seams, layout lint |
-| `preview <numbers or IDs, or --changed>` | stills as a standalone file |
-| `review add / list` | the review log |
-| `release [variant]` | final checks, full render, copy to releases, tag |
+| `numbers [--at COMMIT]` | the conversion table: slide number, stable ID, headline |
+| `script [--pdf]` | time the script at the pace class; regenerate it from the storyboard; the PDF |
+| `greybox` | the greybox page, generated from the storyboard |
+| `specimen` | the design-system specimen page |
+| `build [BEATS] [--act N] [--final]` | render a draft (720p24) or the final (1080p30) deck |
+| `check [--final]` | storyboard problems, layout lint, seams |
+| `preview <7, 7-12, B3.2, B3> / --changed` | stills of those slides as one standalone page |
+| `review add / list / done / decline` | the review log |
+| `release` | final checks, full render, copy to `releases/`, tag |
 
 ## Engine
 

@@ -16,7 +16,7 @@ How author and reviewer notes turn into changes, at any stage.
 ## The loop
 
 1. The author gives notes, by slide number where there is a deck.
-2. Translate each number to its stable ID.
+2. Translate each number to its stable ID: `uv run mpp numbers --at <commit on the draft>`.
 3. Repeat each note back in one line, with its stage:
 
    > slide 7 (B3.2), script: say "halves", not "reduces by 48%".
@@ -60,4 +60,13 @@ Never patch a note downstream. A wrong number fixed in a scene stays wrong in th
 |---|---|---|---|---|---|---|---|---|---|
 
 `status` is `open`, `done` or `declined` (with a reason). The talk is not released while a note is
-open. Add rows with `uv run mpp review add`; list open ones with `uv run mpp review list`.
+open.
+
+```bash
+uv run mpp review add 7 "say halves, not reduces by 48%" --stage script --build <commit on the draft>
+uv run mpp review list --open
+uv run mpp review done 1 "reworded in the storyboard"      # records HEAD as the fix's commit
+uv run mpp review decline 2 "kept: the number is the point"
+```
+
+`review add` turns the slide number into its stable ID through the storyboard at `--build`.

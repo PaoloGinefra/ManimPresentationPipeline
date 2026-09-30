@@ -6,7 +6,9 @@ Produce the release.
 
 1. Check that every stage is approved and every review note is fixed or declined.
 2. Check that the timed read-aloud fits the slot.
-3. Run `uv run mpp release [variant]`. It:
+3. Run `uv run mpp release [-v VARIANT]`. It:
+   - refuses uncommitted changes, unapproved stages and open review notes;
+   - regenerates the script and stops if it was out of date with the storyboard;
    - runs all checks;
    - renders at full quality (1080p) without the draft label;
    - writes the script PDF, the HTML deck, the static PDF (one page per click) and the design
