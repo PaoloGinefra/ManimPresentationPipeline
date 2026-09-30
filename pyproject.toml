@@ -1,0 +1,22 @@
+[project]
+name = "manim-presentation-pipeline"
+version = "0.1.0"
+description = "From a source to a spoken script and an animated manim deck, in reviewed stages."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "manim==0.21.0",
+    "manim-slides==5.7.0",
+]
+
+[project.scripts]
+mpp = "mpp.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.8,<0.9"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "mpp"
+module-root = "engine"
