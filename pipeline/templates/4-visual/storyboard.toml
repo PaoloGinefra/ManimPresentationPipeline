@@ -1,0 +1,23 @@
+# The talk's text, in one place: every frame's headline, the words that trigger its click, and
+# its narration, which becomes the script and the speaker notes. Edit here, never in scene code
+# or in the generated script. Format: pipeline/guides/talk-storyboards.md.
+
+order = ["B1"]     # the talk; leaving a beat out removes it
+backup = []        # beats shown after the last slide, for questions
+
+[acts]
+1 = "Act title"
+
+[B1]
+title = "Beat title"
+act = 1
+kind = "beat"      # beat, peak or stop
+budget_s = 45
+note = "Transition in: . Carried in: . Carried out: ."
+
+[[B1.frame]]
+head = "The claim on screen, one sentence."
+trigger = "the words that fire the click"
+narration = """
+**The spine line.** Support."""
+note = "What the builder does. HOLD."
