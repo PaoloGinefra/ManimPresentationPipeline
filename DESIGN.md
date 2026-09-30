@@ -189,14 +189,17 @@ one per variant and quality; the number of parallel renders is the number of all
 ## Template content
 
 - A template file in each stage folder of `talk/global/`.
-- A default house style in `tokens.toml`.
-- A minimal storyboard (title card and one beat with two clicks) and its scene, so `mpp build`
+- The default house style: `engine/mpp/defaults/tokens.toml`, documented in `5-design/design.md`.
+- A minimal storyboard (title card and one beat with two clicks) and its scenes, so `mpp build`
   works right after cloning.
 
 ## Example
 
 After the pipeline is built, it is run on itself to produce a talk about the pipeline. That talk is
-the main example. No other talk is included.
+the main example, in `examples/pipeline-talk/`, laid out exactly like `talk/`. It lives outside
+`talk/` so that a clone starts from the template and upstream changes to the example never touch
+the author's talk. Its tags carry its path (`examples/pipeline-talk/global/v1`). No other talk is
+included.
 
 ## Licence and names
 

@@ -1,0 +1,5 @@
+# This talk's design tokens: only the keys that differ from the engine's default house style
+# (engine/mpp/defaults/tokens.toml). They merge over it key by key. Example:
+#
+# [colors]
+# ours = "#6A3D9A"

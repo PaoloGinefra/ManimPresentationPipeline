@@ -1,0 +1,28 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Your talk: greybox</title><style>
+:root { --ink: #1b1f2a; --muted: #5b6170; --line: #c9ccd2; --box: #e4e6ea; --ground: #ffffff; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #e8eaee; --muted: #a3a8b3; --line: #4a4f5a; --box: #2e323b; --ground: #16181d; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px 64px; background: var(--ground); color: var(--ink);
+       font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1100px; margin: 0 auto; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+h2 { font-size: 17px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.meta { color: var(--muted); margin: 0 0 24px; }
+.frame { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px; margin: 0 0 28px; }
+@media (max-width: 760px) { .frame { grid-template-columns: 1fr; } }
+.screen { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 4px;
+          overflow: hidden; background: var(--ground); }
+.screen img { width: 100%; height: 100%; display: block; }
+.head { position: absolute; left: 5%; top: 5%; width: 78%; font-weight: 600; font-size: clamp(11px, 1.8vw, 17px); }
+.num { position: absolute; right: 4%; top: 5%; color: var(--muted); font-size: 13px; }
+.grid { position: absolute; left: 5%; right: 5%; top: 22%; bottom: 8%; display: grid;
+        grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; }
+.box { background: var(--box); border-radius: 3px; display: flex; align-items: center; justify-content: center;
+       text-align: center; padding: 4px; color: var(--muted); font-size: 12px; }
+.text p { margin: 0 0 8px; }
+.id { color: var(--muted); font-size: 13px; }
+.trigger { color: var(--muted); font-style: italic; }
+.note { color: var(--muted); font-size: 13px; }
+</style></head><body><main><h1>Your talk: greybox</h1><p class='meta'>Greybox, 3 slides, 0:15 spoken at normal pace. Generated from the storyboard by <code>mpp greybox</code>.</p><h2>Act 1: Start here</h2><p class='id'><strong>B0</strong> · Title card · beat · budget 0:00</p><div class='frame'><div class='screen'><div class='head'>Your talk</div><div class='num'>1</div><div class='grid'><div class='box' style='grid-row:2;grid-column:2'>title, speaker, date</div></div></div><div class='text'><p class='id'>slide 1 · B0.1</p><p class='trigger'>click on: (before the talk starts)</p><p>(No narration: this is up while the room settles.)</p><p class='note'>The title card, from talk.toml. HOLD.</p></div></div><p class='id'><strong>B1</strong> · How a beat works · beat · budget 0:20</p><div class='frame'><div class='screen'><div class='head'>Each click shows one frame of the storyboard.</div><div class='num'>2</div><div class='grid'><div class='box' style='grid-row:2;grid-column:2'>one idea</div></div></div><div class='text'><p class='id'>slide 2 · B1.1</p><p class='trigger'>click on: each click</p><p>Each click shows one frame. Its headline, its number and its speaker notes all come from the storyboard.</p><p class='note'>The title card gives way to the idea. HOLD.</p></div></div><div class='frame'><div class='screen'><div class='head'>The scene code only says what moves.</div><div class='num'>3</div><div class='grid'><div class='box' style='grid-row:2;grid-column:3'>the same idea, moved</div></div></div><div class='text'><p class='id'>slide 3 · B1.2</p><p class='trigger'>click on: what moves</p><p>The scene code says only what changes on each click. Replace this beat with your own.</p><p class='note'>The idea moves right. Why motion: the same object changes place. HOLD.</p></div></div></main></body></html>

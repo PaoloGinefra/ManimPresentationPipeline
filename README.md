@@ -36,6 +36,7 @@ uv run mpp doctor          # checks Python, cairo, pango, LaTeX, fonts, reveal.j
 | `talk/` | your presentation; the only folder you edit |
 | `scripts/` | setup and environment checks |
 | `vendor/` | fonts and reveal.js, for offline builds |
+| `examples/` | the pipeline run on itself: a complete talk about this repository |
 
 Your content lives only under `talk/`, so pipeline updates merge cleanly.
 

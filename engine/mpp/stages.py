@@ -40,7 +40,7 @@ def git(talk: Talk, *args) -> str:
 
 def approvals(talk: Talk, stage: str) -> list[str]:
     """This talk's approval tags for a stage, oldest first."""
-    tags = git(talk, "tag", "--list", f"{talk.name}/{stage}-*").split()
+    tags = git(talk, "tag", "--list", f"{talk.tag_base}/{stage}-*").split()
     return sorted(tags, key=lambda t: int(t.rsplit("-", 1)[1]))
 
 
@@ -85,7 +85,7 @@ def approve(talk: Talk, stage: str, message: str = "") -> str:
     tags = approvals(talk, stage)
     if tags and not changed_since(talk, tags[-1], folder):
         raise RuntimeError(f"{stage} is unchanged since {tags[-1]}: nothing new to approve")
-    tag = f"{talk.name}/{stage}-{len(tags) + 1}"
+    tag = f"{talk.tag_base}/{stage}-{len(tags) + 1}"
     git(talk, "tag", "-a", tag, "-m", message or f"{talk.name}: {stage} approved")
     return tag
 

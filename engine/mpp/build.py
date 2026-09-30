@@ -25,7 +25,7 @@ import subprocess
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from .project import ENGINE, Talk
+from .project import ENGINE, REPO, Talk
 
 QUALITY = {"draft": ["-qm", "--fps", "24"], "final": ["-qh", "--fps", "30"]}
 SCENE_MODULES = ["project", "storyboard", "tokens", "chrome", "camera", "motion", "charts", "lint", "beat"]
@@ -226,7 +226,7 @@ def build(
     # 3. export; manim-slides looks for reveal.js in its cache, so point the cache at the vendored copy
     if name is None:
         name = f"{quality}-{'-'.join(selected)}" if beats else f"{quality}-act{act}" if act is not None else quality
-    export_env = {**os.environ, "XDG_CACHE_HOME": str(talk.root / "vendor" / "cache")}
+    export_env = {**os.environ, "XDG_CACHE_HOME": str(REPO / "vendor" / "cache")}
     folder = ["--folder", renders / "slides"]
     out = [exports / f"{name}.html", exports / f"{name}.pdf"]
     if not (

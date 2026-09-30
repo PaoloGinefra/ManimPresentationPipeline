@@ -38,6 +38,14 @@ def draft_label(commit: str):
     return t.move_to(tk.px(1920 - tk.MARGIN_X, 1080 - tk.MARGIN_BOTTOM), aligned_edge=DOWN + RIGHT)
 
 
+def title_card(title: str, speaker: str = "", date: str = "") -> VGroup:
+    """The talk's title, with who and when under it, centred."""
+    card = VGroup(tk.words(title, "title", weight="SEMIBOLD"))
+    if speaker or date:
+        card.add(tk.words(" · ".join(s for s in (speaker, date) if s), "label", color=tk.MUTED))
+    return card.arrange(DOWN, buff=0.35).move_to(tk.px(960, 540))
+
+
 def act_card(number: int, title: str) -> VGroup:
     """An act's title card, centred."""
     return (

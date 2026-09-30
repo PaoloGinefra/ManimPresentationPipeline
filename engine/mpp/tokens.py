@@ -10,7 +10,7 @@ back row actually sees.
 import manimpango
 from manim import MathTex, Mobject, Tex, Text, TexTemplate, config
 
-from .project import ENGINE, Talk
+from .project import REPO, Talk
 
 TALK = Talk.current()
 RAW = TALK.tokens()
@@ -22,7 +22,7 @@ globals().update({k.upper(): v for k, v in COLORS.items()})
 globals().update({k.upper(): v for k, v in RAW["layout"].items()})
 globals().update({k.upper(): v for k, v in RAW["motion"].items()})
 
-for folder in [ENGINE.parent.parent / "vendor" / "fonts", *TALK.dirs("5-design/fonts")]:
+for folder in [REPO / "vendor" / "fonts", *TALK.dirs("5-design/fonts")]:
     for f in sorted(folder.glob("*.[ot]tf")):
         manimpango.register_font(str(f))
 

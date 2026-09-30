@@ -8,6 +8,9 @@ one definition.
 
 A Talk can also be read at a git commit, which is how a slide number on an old draft is traced back
 to the storyboard it was built from.
+
+A talk's root is any folder holding `talk/global/`: the repository's own, or an example inside it
+(`examples/<name>/`). What every talk shares (`pipeline/`, `vendor/`) is found from the engine.
 """
 
 import os
@@ -16,6 +19,7 @@ import tomllib
 from pathlib import Path
 
 ENGINE = Path(__file__).resolve().parent
+REPO = ENGINE.parent.parent  # pipeline/ and vendor/; the engine runs from its checkout (uv sync)
 DEFAULTS = ENGINE / "defaults"
 
 
@@ -28,8 +32,9 @@ def merge(base: dict, over: dict) -> dict:
 
 
 def find_root(start: Path) -> Path | None:
+    """The nearest folder at or above `start` that holds a talk."""
     for p in (start, *start.parents):
-        if (p / "talk").is_dir() and (p / "pipeline").is_dir():
+        if (p / "talk" / "global").is_dir():
             return p
     return None
 
@@ -52,14 +57,14 @@ class Talk:
         root = os.environ.get("MPP_ROOT")
         root = Path(root) if root else find_root(Path.cwd()) or find_root(ENGINE)
         if root is None:
-            raise RuntimeError("not inside a manim-presentation-pipeline repository (no talk/ and pipeline/)")
+            raise RuntimeError("no talk here: no talk/global/ in this folder or above")
         return cls(root, os.environ.get("MPP_VARIANT"))
 
     # ------------------------------------------------------------ files
     def _exists(self, rel: str) -> bool:
         if self.commit is None:
             return (self.root / rel).exists()
-        return self._git("cat-file", "-e", f"{self.commit}:{rel}") is not None
+        return self._git("cat-file", "-e", f"{self.commit}:./{rel}") is not None
 
     def _git(self, *args) -> str | None:
         r = subprocess.run(["git", *args], cwd=self.root, capture_output=True, text=True)
@@ -69,7 +74,7 @@ class Talk:
         if self.commit is None:
             p = self.root / layer / rel
             return p.read_text() if p.is_file() else None
-        return self._git("show", f"{self.commit}:{layer}/{rel}")
+        return self._git("show", f"{self.commit}:./{layer}/{rel}")
 
     def read(self, rel: str) -> str | None:
         """A whole file, from the first layer that has it."""
@@ -100,6 +105,12 @@ class Talk:
         """A folder in every layer that has it, variant first: the import path for beats and components."""
         return [self.root / layer / rel for layer in self.layers if (self.root / layer / rel).is_dir()]
 
+    @property
+    def tag_base(self) -> str:
+        """Approval and release tags start here: `global`, or `examples/<name>/global` for a talk that
+        is not at the repository's root, so two talks in one repository never share a tag."""
+        return (self._git("rev-parse", "--show-prefix") or "").strip() + self.name
+
     # ------------------------------------------------------------ the talk's data
     def config(self) -> dict:
         return self.toml("0-brief/talk.toml")
@@ -120,7 +131,8 @@ class Talk:
         """Renders, handoffs and logs: a cache, large, one per variant and quality (draft or final), so a
         final render never evicts the drafts. MPP_OUT moves it (a local disk, a scratch space)."""
         quality = quality or os.environ.get("MPP_QUALITY", "draft")
-        return Path(os.environ.get("MPP_OUT") or self.root / "build" / "render") / self.name / quality
+        base = os.environ.get("MPP_OUT")
+        return (Path(base) / self.tag_base if base else self.root / "build" / "render" / self.name) / quality
 
     def exports(self) -> Path:
         """Draft decks and stills for the author: build/<variant>/."""

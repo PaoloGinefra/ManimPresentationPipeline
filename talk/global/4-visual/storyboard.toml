@@ -1,0 +1,47 @@
+# The talk's text, in one place: every frame's headline, the words that trigger its click, and
+# its narration, which becomes the script and the speaker notes. Edit here, never in scene code
+# or in the generated script. Format: pipeline/guides/talk-storyboards.md.
+#
+# This is the template's placeholder talk: a title card and one beat of two clicks, so that
+# `uv run mpp build` works right after cloning. Stage 4 replaces it.
+
+order = ["B0", "B1"]   # the talk; leaving a beat out removes it
+backup = []            # beats shown after the last slide, for questions
+
+[acts]
+1 = "Start here"
+
+[B0]
+title = "Title card"
+act = 1
+kind = "beat"
+budget_s = 0
+
+[[B0.frame]]
+head = "Your talk"
+trigger = "(before the talk starts)"
+narration = "(No narration: this is up while the room settles.)"
+boxes = ["title, speaker, date @ center"]
+note = "The title card, from talk.toml. HOLD."
+
+[B1]
+title = "How a beat works"
+act = 1
+kind = "beat"
+budget_s = 20
+
+[[B1.frame]]
+head = "Each click shows one frame of the storyboard."
+trigger = "each click"
+narration = """
+**Each click shows one frame.** Its headline, its number and its speaker notes all come from
+the storyboard."""
+boxes = ["one idea @ center"]
+note = "The title card gives way to the idea. HOLD."
+
+[[B1.frame]]
+head = "The scene code only says what moves."
+trigger = "what moves"
+narration = "The scene code says only what changes on each click. Replace this beat with your own."
+boxes = ["the same idea, moved @ right"]
+note = "The idea moves right. Why motion: the same object changes place. HOLD."

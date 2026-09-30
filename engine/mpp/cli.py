@@ -16,7 +16,7 @@ from .project import Talk, find_root
 def talk_of(args) -> Talk:
     root = find_root(Path.cwd())
     if root is None:
-        sys.exit("not inside a manim-presentation-pipeline repository (no talk/ and pipeline/ here or above)")
+        sys.exit("no talk here: no talk/global/ in this folder or above")
     return Talk(root, getattr(args, "variant", None))
 
 
@@ -48,7 +48,7 @@ def cmd_status(args):
     )
     if not talk.variant:
         for v in others:
-            tags = stages.git(talk, "tag", "--list", f"{v}/*", "--sort=creatordate").split()
+            tags = stages.git(talk, "tag", "--list", f"{Talk(talk.root, v).tag_base}/*", "--sort=creatordate").split()
             global_changed = tags and subprocess.run(
                 ["git", "diff", "--quiet", tags[-1], "--", "talk/global"], cwd=talk.root
             )
@@ -220,7 +220,7 @@ def cmd_release(args):
     spec = specimen(talk)
     versions = [
         int(m[1])
-        for t in stages.git(talk, "tag", "--list", f"{talk.name}/v*").split()
+        for t in stages.git(talk, "tag", "--list", f"{talk.tag_base}/v*").split()
         if (m := re.fullmatch(r".*/v(\d+)", t))
     ]
     n = max(versions, default=0) + 1
@@ -234,7 +234,7 @@ def cmd_release(args):
     (dest / "tokens.toml").write_text(
         "# Resolved: engine defaults, then the talk's own tokens.\n" + toml_dump(talk.tokens()) + "\n"
     )
-    tag = f"{talk.name}/v{n}"
+    tag = f"{talk.tag_base}/v{n}"
     stages.git(talk, "tag", "-a", tag, "-m", f"release {tag}")
     print(f"released {rel(talk, dest)}/ and tagged {tag}")
 

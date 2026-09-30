@@ -9,11 +9,11 @@ import re
 import subprocess
 from pathlib import Path
 
-from .project import Talk
+from .project import REPO, Talk
 
 COLUMNS = ["#", "date", "build", "slide", "ID", "note", "stage", "fix", "commit", "status"]
 NOTE_STAGES = ["brief", "digest", "outline", "script", "visual", "design", "build"]
-TEMPLATE = "pipeline/templates/7-review/log.md"
+TEMPLATE = REPO / "pipeline" / "templates" / "7-review" / "log.md"
 
 
 def path(talk: Talk) -> Path:
@@ -27,7 +27,7 @@ def cell(s: str) -> str:
 def read(talk: Talk) -> tuple[list[str], list[dict]]:
     """The file's lines before the table, and the rows."""
     p = path(talk)
-    text = (p if p.exists() else talk.root / TEMPLATE).read_text()
+    text = (p if p.exists() else TEMPLATE).read_text()
     head, rows = [], []
     for line in text.splitlines():
         if not line.startswith("|"):
