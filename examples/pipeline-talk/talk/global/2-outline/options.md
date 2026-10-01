@@ -49,3 +49,11 @@ Suggested: 1. Nine sections is a list, not a story.
 3. A call to clone the repository.
 
 Suggested: 1, ending on the one sentence.
+
+## Version 2 (review note #5)
+
+The author restructured act 2 directly, so no new options were needed: one beat per stage, each
+showing what the stage is and what the author checks before moving on; the cache example as a
+whole talk in the brief and the digest, and one of its sentences followed alone from the outline on.
+The thread above survives in that form; the three peaks become the sentence being picked (B11), the
+late note (B6) and the closing greybox (B8).
