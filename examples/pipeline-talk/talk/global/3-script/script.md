@@ -124,7 +124,7 @@ One command checks your machine. One builds the deck, and it works offline. Your
 
 **This talk was made this way. This slide started as a grey box.**
 
-> **24** (B8.2) · slide: "Build a talk like software: in stages, checked cheaply, from one source." · click on: "Brief, digest, outline"
+> **24** (B8.2) · slide: "Every stage was checked before the next." · click on: "Brief, digest, outline"
 
 Brief, digest, outline, script, storyboard, greybox. Then the render. Each stage checked before the next. That's how a late note goes back to costing a sentence. **Build a talk the way you build software. In stages, each checked cheaply by its author, from one source file.**
 

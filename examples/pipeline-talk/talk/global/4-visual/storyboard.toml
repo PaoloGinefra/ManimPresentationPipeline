@@ -277,7 +277,7 @@ boxes = ["the closing slide, as grey boxes @ center", "row of stages @ bottom-ro
 note = "The closing slide's own greybox, drawn as the greybox page draws it. HOLD."
 
 [[B8.frame]]
-head = "Build a talk like software: in stages, checked cheaply, from one source."
+head = "Every stage was checked before the next."
 trigger = "Brief, digest, outline"
 narration = """
 Brief, digest, outline, script, storyboard, greybox. Then the render. Each stage checked before the
