@@ -32,5 +32,7 @@ Every act has been read aloud and the total fits the slot. Tag `global/script-1`
 
 ## After this stage
 
-In stage 4 the script's text moves into `storyboard.toml`. From then on `script.md` is generated
-by `mpp script` and must not be edited by hand; script notes are fixed in the storyboard.
+In stage 4 the script's text moves into `storyboard.toml`, and `mpp script --from-storyboard`
+replaces the hand-written `script.md` with a generated one. From then on `script.md` is generated
+by `mpp script` and must not be edited by hand; script notes are fixed in the storyboard. Until
+then `mpp script` only times the hand-written file and never overwrites it.

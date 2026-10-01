@@ -89,7 +89,7 @@ def cmd_numbers(args):
 def cmd_script(args):
     from . import script
 
-    print(script.run(talk_of(args), pdf=args.pdf))
+    print(script.run(talk_of(args), pdf=args.pdf, from_storyboard=args.from_storyboard))
 
 
 def cmd_greybox(args):
@@ -269,6 +269,7 @@ def main() -> None:
     p.add_argument("--at", metavar="COMMIT", help="as built at this commit (the one on the draft)")
     p = command("script", cmd_script, "time the script at the pace class; regenerate it from the storyboard")
     p.add_argument("--pdf", action="store_true", help="also write the script PDF to build/<variant>/")
+    p.add_argument("--from-storyboard", action="store_true", help="replace a hand-written script.md (stage 4)")
     command("greybox", cmd_greybox, "the greybox page, generated from the storyboard")
     command("specimen", cmd_specimen, "the design-system specimen page")
     p = command("build", cmd_build, "render the deck: a draft (720p24) by default")

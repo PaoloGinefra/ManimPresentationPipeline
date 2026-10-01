@@ -30,8 +30,9 @@ The approved script, outline and digest (for reusable figures).
    every frame as labelled grey boxes, with its plain slide number, its stable ID, its real
    headline and its narration underneath. It is generated from the storyboard, so it never
    drifts from it; fix the storyboard, not the page.
-4. Run `uv run mpp script` to regenerate `3-script/script.md` from the storyboard, and check the
-   times still fit.
+4. Run `uv run mpp script --from-storyboard`: `3-script/script.md` is now generated from the
+   storyboard. Check the times still fit, and diff it against the approved script: the words
+   should not have changed on the way.
 
 ## Checkpoint
 
