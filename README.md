@@ -24,6 +24,9 @@ uv run mpp build           # the placeholder talk: build/global/draft.html
 1. Put your source files in `talk/source/`.
 2. Point your agent at `AGENTS.md`. It runs the stages and stops for you at each one.
 
+To see what every stage produces before starting, read `examples/pipeline-talk/`: a complete talk
+about this repository, made with it, from brief to release.
+
 ## Setup
 
 Everything runs through [uv](https://docs.astral.sh/uv/), which installs Python 3.12 and every

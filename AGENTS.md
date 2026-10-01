@@ -9,6 +9,9 @@ author decides; you do the work and stop for their approval at every stage.
 2. Run `uv run mpp status` to see which stages are approved and what comes next.
 3. Read the doc for that stage in `pipeline/stages/` and follow it.
 
+`examples/pipeline-talk/` is a complete worked example: every stage's checkpoint file for one talk.
+Use it to see what a stage's output looks like, not as content to copy.
+
 ## Rules
 
 - **One stage at a time.** Finish it, show the author its checkpoint file, wait for approval.
