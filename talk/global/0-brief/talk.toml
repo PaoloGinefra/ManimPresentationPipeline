@@ -6,3 +6,10 @@ date = ""          # YYYY-MM-DD
 slot_min = 20      # minutes of speech, question time excluded
 pace = "normal"    # slow (120 wpm), normal (135) or fast (150)
 questions_inside = false
+
+# Optional.
+# [build]
+# python_path = ["../my-paper/figures"]   # import code from outside this repository, relative to it
+# [check]
+# accept = []                             # layout findings looked at and accepted, exactly as reported
+# near_misses = true                      # false for a deck made before the near-miss check

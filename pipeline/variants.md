@@ -32,7 +32,8 @@ a variant that changes one frame restates all of that beat's frames.
 
 ## Stages
 
-A variant goes through the stages its files touch. A shorter cut usually changes the brief
+A variant goes through the stages its files touch. A stage it does not override is approved once, in
+`global/`, and the variant reads that approval (`mpp status -v <name>` shows it). A shorter cut usually changes the brief
 (`talk.toml`), the outline and the storyboard, and reuses the design and the beat scenes. Its
 approvals are tagged under its name (`versioning.md`).
 

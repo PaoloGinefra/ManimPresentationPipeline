@@ -26,13 +26,17 @@ def static(talk: Talk) -> list[str]:
 
 
 def lint(talk: Talk, quality: str = "draft") -> list[str]:
+    """Layout findings, less those the author has looked at and accepted: talk.toml [check] accept, a
+    list of findings exactly as reported (say "B21.4: overlap 23%: 'a' / 'b'"), each with its reason in
+    a comment beside it."""
     folder = talk.renders(quality) / "lint"
+    accepted = set(talk.config().get("check", {}).get("accept", []))
     order = talk.storyboard().sequence()
     out = []
     for b in order:
         f = folder / f"{b}.txt"
         if f.exists():
-            out += [line for line in dict.fromkeys(f.read_text().splitlines()) if line]
+            out += [line for line in dict.fromkeys(f.read_text().splitlines()) if line and line not in accepted]
     return out
 
 

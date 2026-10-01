@@ -94,6 +94,8 @@ def commit_label(root: Path) -> str:
 
 def environment(talk: Talk, quality: str, lint: bool = False) -> dict:
     layers = [str(d) for d in talk.dirs("6-build")]
+    # a talk may import code from outside the repository (its paper's figure library): talk.toml [build]
+    layers += [str((talk.root / p).resolve()) for p in talk.config().get("build", {}).get("python_path", [])]
     env = {
         **os.environ,
         "MPP_ROOT": str(talk.root),

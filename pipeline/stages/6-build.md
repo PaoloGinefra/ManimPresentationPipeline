@@ -16,6 +16,11 @@ The approved storyboard and design system.
   variant's `components/` file of the same name wins.
 - Generic pieces (headline, slide number, charts, zooms, tokens) come from the engine
   (`from mpp import charts, motion`, `from mpp import tokens as tk`). Do not copy them into the talk.
+- A talk's own furniture (a progress gauge, say) goes in a subclass of `mpp.beat.Beat` in
+  `components/`: return it from `furniture()`, and put any state the next beat needs in `self.carry`
+  (the next beat reads it as `self.handed`).
+- Code from outside the repository (a paper's figure library) is imported through
+  `[build] python_path` in `talk.toml`, never by copying it in.
 - Give a recurring object a role (`obj.role = "timeline"`) so the next beat can pick it up with
   `self.carried("timeline")`.
 - Renders go to `build/render/<variant>/<draft or final>/`, or under `MPP_OUT` when it is set
@@ -31,7 +36,8 @@ The approved storyboard and design system.
    texts whose baselines or left edges miss each other by a few pixels), and seams between slides.
    Set labels that share a line with `tk.set_baseline`, not by centring them: centring aligns ink,
    and a word with a descender then sits higher than one without. A beat whose clicks differ from its storyboard frames fails to build.
-   Fix every failure before showing anything.
+   Fix every failure before showing anything. A finding the author has looked at and accepted goes
+   in `talk.toml` under `[check] accept`, exactly as reported, with the reason in a comment.
 4. Show the author stills: `uv run mpp preview 7-12` (slide numbers, ranges, IDs like `B3.2`, or
    whole beats like `B3`). It writes `build/<variant>/preview.html`, one still per slide.
 5. Apply notes (`feedback.md`), then show only what changed: `uv run mpp preview --changed`.

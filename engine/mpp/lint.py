@@ -118,7 +118,8 @@ def _check(scene, label):
             o = overlap(box(a), box(b))
             if o > 0.15:
                 found.append(f"overlap {o:.0%}: '{name(a)}' / '{name(b)}'")
-    found += near_misses(ts)
+    if Talk.current().config().get("check", {}).get("near_misses", True):  # off for decks made before it
+        found += near_misses(ts)
     W, H = config.frame_width / 2 + MARGIN, config.frame_height / 2 + MARGIN
     for t in ts:  # only text: a picture past the edge is usually a zoom, cropped on purpose
         x0, y0, x1, y1 = box(t)

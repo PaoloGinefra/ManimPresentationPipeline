@@ -65,10 +65,13 @@ class Beat(Slide):
         self.head, self.head_text, self.tag = None, None, None
         self.label = chrome.draft_label(DRAFT) if DRAFT else None
         self.inherited = []
+        self.handed = {}  # what the previous beat put in its `carry`
+        self.carry = {}  # what this beat hands on besides its picture: a talk's own state (a gauge's depth)
         prev = STORYBOARD.previous(self.id)
         if prev and (HANDOFF / f"{prev}.pkl").exists():
             h = pickle.loads((HANDOFF / f"{prev}.pkl").read_bytes())
             self.inherited = h["content"]
+            self.handed = h.get("carry", {})
             self.add(*self.inherited)
             self.head, self.head_text, self.tag = h["head"], h["head_text"], h["tag"]
             self.add(*[m for m in (self.head, self.tag) if m is not None])
@@ -156,9 +159,15 @@ class Beat(Slide):
         self.head, self.head_text = None, None
         return head
 
+    def furniture(self):
+        """A talk's own furniture, drawn over everything like the headline and never faded with the
+        picture (a progress gauge, say). Override in the talk's Beat subclass; hand its state on in
+        `self.carry`."""
+        return []
+
     def chrome(self):
-        """The furniture on screen now: headline, number, draft label."""
-        return [c for c in (self.head, self.tag, self.label) if c is not None]
+        """The furniture on screen now: headline, number, draft label, and the talk's own."""
+        return [c for c in (self.head, self.tag, self.label, *self.furniture()) if c is not None]
 
     def content(self):
         """What is on screen besides the furniture, as the objects a beat made.
@@ -221,7 +230,15 @@ class Beat(Slide):
             HANDOFF / f".{self.id}.pkl.{os.getpid()}"
         )  # written whole, then renamed: a parallel reader never sees half
         tmp.write_bytes(
-            pickle.dumps({"content": content, "head": self.head, "head_text": self.head_text, "tag": self.tag})
+            pickle.dumps(
+                {
+                    "content": content,
+                    "head": self.head,
+                    "head_text": self.head_text,
+                    "tag": self.tag,
+                    "carry": self.carry,
+                }
+            )
         )
         tmp.replace(HANDOFF / f"{self.id}.pkl")
         super().tear_down()

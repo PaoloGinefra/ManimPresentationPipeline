@@ -51,16 +51,25 @@ def changed_since(talk: Talk, tag: str, folder: str) -> bool:
     return r.returncode != 0
 
 
+def owner(talk: Talk, stage: Stage) -> Talk:
+    """Whose approval a stage needs: a variant's own if it overrides files of that stage, else
+    global's, which the variant then reads unchanged."""
+    if talk.variant and not (talk.root / talk.layers[0] / stage.folder).is_dir():
+        return Talk(talk.root)
+    return talk
+
+
 def status(talk: Talk) -> list[dict]:
     rows = []
     for s in STAGES:
-        tags = approvals(talk, s.name)
+        who = owner(talk, s)
+        tags = approvals(who, s.name)
         present = [p for p in talk.dirs(s.folder) if any(f.name != ".gitkeep" for f in p.rglob("*") if f.is_file())]
         rows.append(
             {
                 "stage": s,
                 "tag": tags[-1] if tags else None,
-                "changed": bool(tags) and changed_since(talk, tags[-1], s.folder),
+                "changed": bool(tags) and changed_since(who, tags[-1], s.folder),
                 "has_files": bool(present),
             }
         )
@@ -79,6 +88,8 @@ def approve(talk: Talk, stage: str, message: str = "") -> str:
     if stage not in BY_NAME:
         raise ValueError(f"no stage {stage!r}; stages are {', '.join(BY_NAME)}")
     folder = BY_NAME[stage].folder
+    if owner(talk, BY_NAME[stage]) is not talk:
+        raise RuntimeError(f"{talk.name} has no {folder} of its own: it reads global's, so approve it in global")
     paths = [f"{layer}/{folder}" for layer in talk.layers]
     if git(talk, "status", "--porcelain", "--", *paths):
         raise RuntimeError(f"{folder} has uncommitted changes: commit them, then approve")
