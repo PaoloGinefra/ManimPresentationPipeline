@@ -127,6 +127,8 @@ def cmd_check(args):
     rows, bad = checks.seams(talk, quality, sheet=Path(args.sheet) if args.sheet else None)
     for p in problems:
         print("storyboard:", p)
+    for w in checks.warnings(talk):
+        print("warning:", w)
     for line in lint:
         print("layout:", line)
     for a, b, d in bad:
@@ -205,6 +207,8 @@ def cmd_release(args):
     problems = checks.static(talk)
     if problems:
         sys.exit("storyboard problems:\n  " + "\n  ".join(problems))
+    for w in checks.warnings(talk):
+        print("warning:", w)
     print(scripts.run(talk, pdf=True))
     if stages.git(talk, "status", "--porcelain", "--untracked-files=no"):
         sys.exit("script.md was out of date with the storyboard: it is regenerated now; commit it and release again")

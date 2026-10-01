@@ -18,11 +18,20 @@ from .project import Talk
 
 
 def static(talk: Talk) -> list[str]:
+    """Problems that make the talk wrong: the storyboard's own, and a beat of the talk with no scene."""
     sb = talk.storyboard()
     found = sb.problems()
     sources = beat_sources(talk)
-    found += [f"{b} has no scene in 6-build/beats/" for b in sb.sequence() if b in sb.data and b not in sources]
+    found += [f"{b} has no scene in 6-build/beats/" for b in sb.order if b in sb.data and b not in sources]
     return found
+
+
+def warnings(talk: Talk) -> list[str]:
+    """What is missing but does not make the talk wrong: a backup beat with no scene is left out of the
+    deck, and its slide numbers stay reserved."""
+    sb = talk.storyboard()
+    sources = beat_sources(talk)
+    return [f"backup {b} has no scene: left out of the deck" for b in sb.backup if b in sb.data and b not in sources]
 
 
 def lint(talk: Talk, quality: str = "draft") -> list[str]:
