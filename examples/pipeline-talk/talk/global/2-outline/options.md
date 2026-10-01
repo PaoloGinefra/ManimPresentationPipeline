@@ -50,7 +50,7 @@ Suggested: 1. Nine sections is a list, not a story.
 
 Suggested: 1, ending on the one sentence.
 
-## Version 2 (review note #5)
+## After review note #5
 
 The author restructured act 2 directly, so no new options were needed: one beat per stage, each
 showing what the stage is and what the author checks before moving on; the cache example as a

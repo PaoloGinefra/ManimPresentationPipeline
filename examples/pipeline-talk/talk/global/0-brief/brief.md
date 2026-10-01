@@ -8,8 +8,7 @@ They do not need to know Python to follow the talk.
 
 ## Slot
 
-Eight minutes of speech. Questions come after, outside the slot. (Six until review note #6: one beat
-per stage needs the room.)
+Eight minutes of speech. Questions come after, outside the slot.
 
 ## The one sentence
 

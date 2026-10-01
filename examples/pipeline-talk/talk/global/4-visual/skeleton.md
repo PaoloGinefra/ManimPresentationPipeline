@@ -1,7 +1,5 @@
 # Skeleton
 
-Version 2, after review notes #5 and #7.
-
 **The one sentence:** Build a talk the way you build software: in stages, each checked cheaply by
 its author, from one source file.
 

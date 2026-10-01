@@ -2,7 +2,7 @@
 # its narration, which becomes the script and the speaker notes. Edit here, never in scene code
 # or in the generated script. Format: pipeline/guides/talk-storyboards.md.
 #
-# Version 2 (review note #5): act 2 is one beat per stage. B4 and B5 are retired: their IDs are not
+# Act 2 is one beat per stage (review note #5). B4 and B5 are retired: their IDs are not
 # reused. The stage beats took the next free IDs, B9 to B16; the order lives in `order`.
 
 order = ["B0", "B1", "B2", "B3", "B9", "B10", "B11", "B12", "B13", "B14", "B15", "B6", "B16", "B7", "B8"]

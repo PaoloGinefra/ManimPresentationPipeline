@@ -1,7 +1,5 @@
 # Outline
 
-Version 2, after review note #5: act 2 is one beat per stage.
-
 **The one sentence:** Build a talk the way you build software: in stages, each checked cheaply by
 its author, from one source file.
 
@@ -29,7 +27,7 @@ ticks on the row.
 
 ## Beats
 
-Beat IDs are stable: B4 and B5 of version 1 are retired (their content now lives in the stage
+Beat IDs are stable: B4 and B5 were retired by review note #5 (their content now lives in the stage
 beats), the stage beats take the next free IDs, and the order lives in the storyboard.
 
 | ID | act | type | spine line | the author checks | time |
