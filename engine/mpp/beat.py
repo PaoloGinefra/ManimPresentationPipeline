@@ -21,7 +21,7 @@ import copy
 import os
 import pickle
 
-from manim import LEFT, RIGHT, UP, AnimationGroup, FadeIn, FadeOut, Wait, config
+from manim import LEFT, RIGHT, UP, AnimationGroup, FadeIn, FadeOut, Group, Mobject, Wait, config
 from manim_slides import Slide
 
 from . import chrome, lint
@@ -161,8 +161,21 @@ class Beat(Slide):
         return [c for c in (self.head, self.tag, self.label) if c is not None]
 
     def content(self):
+        """What is on screen besides the furniture, as the objects a beat made.
+
+        Some animations (Succession, an AnimationGroup) leave the scene holding a role-less `Group`
+        around the objects they moved, and empty `Mobject` placeholders. Those are looked through, so a
+        role given to an object survives into the handoff."""
         keep = {id(c) for c in self.chrome()}
-        return [m for m in self.mobjects if id(m) not in keep]
+        out = []
+        for m in self.mobjects:
+            if id(m) in keep:
+                continue
+            if type(m) in (Group, Mobject) and getattr(m, "role", None) is None:
+                out += [s for s in m.submobjects if id(s) not in keep]
+            else:
+                out.append(m)
+        return out
 
     def crossfade(self, *new, keep=(), run_time=None):
         """Change the picture in one move: what is on screen fades out while `new` fades in just behind it,
@@ -181,13 +194,15 @@ class Beat(Slide):
         Give an object a role (`obj.role = "timeline"`) in the beat that makes it."""
         return next((m for m in self.inherited if getattr(m, "role", None) == role), None)
 
-    def wipe(self, *also, run_time=None):
-        """Fade out everything but the furniture: the usual start of a frame that changes the picture.
-        Quick, so the new picture can follow it in a second `play` instead of crossing it."""
+    def wipe(self, *also, keep=(), run_time=None):
+        """Fade out everything but the furniture and `keep`: the usual start of a frame that changes the
+        picture. Quick, so the new picture can follow it in a second `play` instead of crossing it."""
         run_time = run_time or tk.FOCUS
+        kept = {id(m) for k in keep for m in k.get_family()}
         for m in self.mobjects:
             m.clear_updaters()
-        return [FadeOut(m, run_time=run_time) for m in [*self.content(), *also]]
+        gone = [m for m in self.content() if not any(id(f) in kept for f in m.get_family())]
+        return [FadeOut(m, run_time=run_time) for m in [*gone, *also]]
 
     def tear_down(self):
         """The scene must use exactly the frames the storyboard lists, so text and scene cannot drift.
