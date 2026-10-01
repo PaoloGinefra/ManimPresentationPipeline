@@ -23,6 +23,15 @@ The source is this repository; paths are relative to its root. Each item has a s
 | C14 | Variants hold only what differs from the main talk. | `pipeline/variants.md` | could |
 | C15 | The build checks every click for text over text and text off the frame, and every seam between slides for a jump. | `engine/mpp/lint.py`, `engine/mpp/checks.py` | leave out (backup) |
 | C16 | Only changed beats are rendered again. | `engine/mpp/build.py` | leave out |
+| C17 | Brief: the author answers who is in the room, the slot and pace, the one sentence, and what is held back. | `pipeline/stages/0-brief.md` Questions | must |
+| C18 | Digest: the author sorts every item must / could / leave out, and answers every gap and disagreement. | `pipeline/stages/1-digest.md` Checkpoint, Done when | must |
+| C19 | Outline: the author picks per decision among small options, then approves the story on one page. | `pipeline/stages/2-outline.md` | must |
+| C20 | Script: the author reads every act aloud, and the total must fit the slot. | `pipeline/stages/3-script.md` Done when | must |
+| C21 | Visual: the author picks per beat, then approves the greybox. | `pipeline/stages/4-visual.md` | must |
+| C22 | Design: the author approves the specimen, one page. | `pipeline/stages/5-design.md` | must |
+| C23 | Build: the author approves stills of every slide, then each act in a click-through. | `pipeline/stages/6-build.md` | must |
+| C24 | Rehearsal (optional): reviewers' notes are traced to their stages; the author approves the plan. | `pipeline/stages/7-rehearsal.md` | must |
+| C25 | Final: the release is refused while a stage is unapproved or a note is open; the author approves the release. | `pipeline/stages/8-final.md`; `engine/mpp/cli.py` `cmd_release` | must |
 
 ## Numbers
 
@@ -32,6 +41,9 @@ The source is this repository; paths are relative to its root. Each item has a s
 | N2 | pace classes: 120, 135, 150 words per minute | C3 | `pipeline/principles.md` | could |
 | N3 | drafts 720p at 24 frames per second; finals 1080p at 30 | C8 | `engine/mpp/build.py` `QUALITY` | could |
 | N4 | the template talk builds from a fresh clone in about 12 seconds | C11 | working notes, measured once on one machine | leave out: in no document |
+
+The talk's running example, a talk about a cache, is invented to illustrate the stages: its brief,
+claims and sentence are not results of anything.
 
 ## Figures
 
