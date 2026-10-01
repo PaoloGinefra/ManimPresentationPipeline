@@ -3,6 +3,11 @@
 From a source (paper, report, thesis, project) to a spoken script and an animated deck, through
 fixed stages. Agents do the work; you steer with short, targeted feedback at every stage.
 
+![The pipeline in 45 seconds: nine stages, each ending with something short the author checks, from a brief to a release](docs/recap.gif)
+
+The pipeline in 45 seconds ([full-quality video](docs/recap.mp4)), drawn with the example talk's own
+cast and rebuilt with `docs/recap/render.sh`.
+
 What you get:
 
 - **Script:** a PDF with click cues.
