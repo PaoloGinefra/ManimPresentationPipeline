@@ -21,11 +21,11 @@ The release, tracked in git so it can be read without building anything:
 
 | File | What |
 |---|---|
-| [`talk.html`](releases/global/v2/talk.html) | the animated deck: one offline file, speaker notes included (download and open it) |
-| [`talk.pdf`](releases/global/v2/talk.pdf) | the static deck, one page per click |
-| [`script.pdf`](releases/global/v2/script.pdf) | the script, with a cue at every click |
-| [`specimen.html`](releases/global/v2/specimen.html) | the design system's specimen page |
-| [`design.md`](releases/global/v2/design.md), [`tokens.toml`](releases/global/v2/tokens.toml) | the design system, with every token resolved |
+| [`talk.html`](releases/global/v1/talk.html) | the animated deck: one offline file, speaker notes included (download and open it) |
+| [`talk.pdf`](releases/global/v1/talk.pdf) | the static deck, one page per click |
+| [`script.pdf`](releases/global/v1/script.pdf) | the script, with a cue at every click |
+| [`specimen.html`](releases/global/v1/specimen.html) | the design system's specimen page |
+| [`design.md`](releases/global/v1/design.md), [`tokens.toml`](releases/global/v1/tokens.toml) | the design system, with every token resolved |
 
 The high-level storyboard is [`skeleton.md`](talk/global/4-visual/skeleton.md), the frame-by-frame
 one [`storyboard.toml`](talk/global/4-visual/storyboard.toml), and both as a page
@@ -42,8 +42,7 @@ uv run --project ../.. mpp greybox         # the greybox page
 ```
 
 Its tags carry its path: `examples/pipeline-talk/global/brief-1` and so on, and
-`examples/pipeline-talk/global/v2` for the current release (v1 is the six-minute first version,
-still in the history at its tag).
+`examples/pipeline-talk/global/v1` for the release.
 
 ## What is not real about it
 
