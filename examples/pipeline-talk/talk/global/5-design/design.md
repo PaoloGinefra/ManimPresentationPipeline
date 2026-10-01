@@ -60,10 +60,18 @@ Drawn once in `6-build/components/pipeline.py`; the specimen shows each.
 
 | object | how it is drawn |
 |---|---|
-| row of stages | eight rounded boxes along the bottom (centre line at 930 px), labels in `note`; done: ink stroke and a tick; in focus: ours stroke, a 12% ours fill; not yet: structure stroke, muted label |
-| sentence card | one 16:9 card, 1100 by 619 px, structure stroke, the sentence always in ours; in its greybox and render forms the card is the slide itself |
-| note | a rounded card with a highlight stroke and a 12% highlight fill |
-| ladder | four rungs, each wider than the one below, structure stroke, no numbers: the cost of a change was never measured |
+| row of stages | nine rounded boxes spanning margin to margin along the bottom (centre line at 930 px); labels centred, on one baseline; done: ink outline and an ink tick badge on the corner; in focus: ours outline, a 12% ours fill; not yet: structure outline, muted label; rehearsal dashed, because it is optional |
+| card | one 16:9 card, 1100 by 619 px, structure outline; its content starts at a 56 px left padding in every form, so changing form never moves content sideways; the followed sentence is always in ours; in its slide forms the card is the slide |
+| card, set aside | the card at 55%, on the left margin, its top level with the capitals of the check list's title |
+| check list | "The author checks" in muted label size, then one line per check with a box that ticks; every line on one left edge (820 px) |
+| note | a rounded card with a highlight outline and a 12% highlight fill |
+| ladder | four rungs on one left edge, each longer than the one below, no numbers; labels right-aligned to one edge, each on its rung's line |
 
-The talk uses the default house style unchanged: ours for the thread, highlight for the note,
-structure for the scaffolding. No new colour.
+## Alignment
+
+Every left edge sits on the 96 px margin or on a column of the layout (the card's padding, the check
+list at 820 px). Texts that share a line share a baseline (`tk.set_baseline`), never a centre: a word
+with a descender would otherwise sit higher. `mpp check` reports near-misses of a few pixels.
+
+The talk uses the default house style unchanged: ours for the thread and the stage in focus,
+highlight for the note, structure for the scaffolding. No new colour.
