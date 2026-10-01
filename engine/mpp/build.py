@@ -23,6 +23,7 @@ import os
 import pickle
 import shutil
 import subprocess
+import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -92,10 +93,15 @@ def commit_label(root: Path) -> str:
     return sha + (" (modified)" if git("status", "--porcelain", "--untracked-files=no") else "")
 
 
+def import_paths(talk: Talk) -> list[str]:
+    """Where a talk's code is imported from: its 6-build folders, variant first, then any code from
+    outside the repository it names (its paper's figure library), talk.toml [build] python_path."""
+    paths = [str(d) for d in talk.dirs("6-build")]
+    return paths + [str((talk.root / p).resolve()) for p in talk.config().get("build", {}).get("python_path", [])]
+
+
 def environment(talk: Talk, quality: str, lint: bool = False) -> dict:
-    layers = [str(d) for d in talk.dirs("6-build")]
-    # a talk may import code from outside the repository (its paper's figure library): talk.toml [build]
-    layers += [str((talk.root / p).resolve()) for p in talk.config().get("build", {}).get("python_path", [])]
+    layers = import_paths(talk)
     env = {
         **os.environ,
         "MPP_ROOT": str(talk.root),
@@ -173,6 +179,10 @@ def build(
     if not selected:
         raise BuildError("nothing to build: no beat in the selection has a scene")
 
+    # handoffs hold the talk's own objects (its cast), so reading one here needs the talk's imports too
+    for p in reversed(import_paths(talk)):
+        if p not in sys.path:
+            sys.path.insert(0, p)
     renders, exports = talk.renders(quality), talk.exports()
     logs, handoff, stamps_file = renders / "logs", renders / "handoff", renders / "stamps.json"
     for d in (renders, logs, exports):
