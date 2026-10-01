@@ -27,8 +27,11 @@ class B1(Beat):
         self.play(LaggedStart(*[FadeIn(s, shift=RIGHT * 0.4) for s in queue], lag_ratio=0.3, run_time=2.4))
         self.play(cache.animate.set_fill(opacity=0.35).set_stroke(tk.OURS, width=4), run_time=2)
 
-        panel = RoundedRectangle(corner_radius=0.08, width=px_w(760), height=px_w(330), stroke_color=tk.STRUCTURE,
+        panel = RoundedRectangle(corner_radius=0.08, width=px_w(1180), height=px_w(400), stroke_color=tk.STRUCTURE,
                                  stroke_width=2, fill_color=tk.GROUND, fill_opacity=1)
-        lines = VGroup(*[tk.words(s, "note", color=tk.INK) for s in CODE]).arrange(DOWN, aligned_edge=LEFT, buff=px_w(18))
-        code = VGroup(panel, lines.move_to(panel)).move_to(tk.px(1080, 600))
+        lines = VGroup(*[tk.words(s.strip(), "label", color=tk.INK) for s in CODE]).arrange(DOWN, aligned_edge=LEFT,
+                                                                                         buff=px_w(20))
+        for line, s in zip(lines, CODE):  # Text drops leading spaces: indent by hand
+            line.shift(RIGHT * px_w(16) * (len(s) - len(s.lstrip())))
+        code = VGroup(panel, lines.move_to(panel)).move_to(tk.px(1015, 560))
         self.click(*self.dim(), FadeIn(code, shift=LEFT * 0.6))

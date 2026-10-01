@@ -26,7 +26,7 @@ class B3(Beat):
 
         cards = VGroup()
         for i, text in CHECKPOINTS:
-            box = RoundedRectangle(corner_radius=0.06, width=px_w(200), height=px_w(84), stroke_color=tk.OURS,
+            box = RoundedRectangle(corner_radius=0.06, width=px_w(176), height=px_w(84), stroke_color=tk.OURS,
                                    stroke_width=2.5, fill_color=tk.OURS, fill_opacity=0.08)
-            cards.add(VGroup(box, tk.words(text, "note").move_to(box)).move_to(above(i, 60)))
+            cards.add(VGroup(box, tk.words(text, "note").move_to(box)).move_to(above(i, 150)))
         self.click(LaggedStart(*[FadeIn(c, shift=UP * 0.3) for c in cards], lag_ratio=0.6, run_time=2.4))

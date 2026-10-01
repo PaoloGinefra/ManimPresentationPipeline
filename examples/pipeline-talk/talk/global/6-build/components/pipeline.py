@@ -165,10 +165,10 @@ def card_at(form: str, stage: int) -> VGroup:
 
 
 # ------------------------------------------------------------------ the note
-def note(text: str = "slide 7: say halves, not 48%", width: float = 420) -> VGroup:
-    box = RoundedRectangle(corner_radius=0.06, width=px_w(width), height=px_w(70), stroke_color=tk.HIGHLIGHT,
-                           stroke_width=3, fill_color=tk.HIGHLIGHT, fill_opacity=0.12)
-    t = tk.words(text, "note", color=tk.INK).move_to(box)
+def note(text: str = "slide 7: say halves, not 48%", width: float = 420, size: str = "note") -> VGroup:
+    box = RoundedRectangle(corner_radius=0.06, width=px_w(width), height=px_w(70 if size == "note" else 104),
+                           stroke_color=tk.HIGHLIGHT, stroke_width=3, fill_color=tk.HIGHLIGHT, fill_opacity=0.12)
+    t = tk.words(text, size, color=tk.INK).move_to(box)
     n = VGroup(box, t)
     n.role = "note"
     return n
