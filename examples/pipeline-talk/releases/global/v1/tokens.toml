@@ -1,0 +1,40 @@
+# Resolved: engine defaults, then the talk's own tokens.
+
+[colors]
+ink = "#1B1F2A"
+muted = "#5B6170"
+structure = "#9AA0AA"
+faint = "#D5D8DD"
+ground = "#FFFFFF"
+ours = "#0072B2"
+baseline = "#E69F00"
+baseline_text = "#8F5F00"
+highlight = "#CC79A7"
+failure = "#D55E00"
+
+[type]
+face = "Source Sans 3"
+tex_packages = ["amsmath", "amssymb", "bm"]
+
+[type.cap]
+title = 64
+headline = 40
+label = 28
+note = 23
+number = 24
+
+[layout]
+margin_x = 96
+margin_top = 64
+margin_bottom = 56
+headline_max_w = 1500
+content_top = 220
+content_bottom = 950
+ours_side = "left"
+
+[motion]
+step = 0.8
+move = 1.1
+zoom = 2.4
+focus = 0.4
+dim = 0.25
