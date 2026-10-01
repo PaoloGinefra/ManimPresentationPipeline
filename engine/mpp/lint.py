@@ -28,6 +28,8 @@ def texts(mobjects):
     out = []
 
     def walk(m):
+        if getattr(m, "lint_ignore", False):  # furniture that is not part of the slide (the draft label)
+            return
         if isinstance(m, TEXTS):
             if visible(m) and m.width > 1e-3:
                 out.append(m)
@@ -60,6 +62,7 @@ def name(m):
 
 
 NEAR = (1, 10)  # pixels at 1080p: closer than this is meant to align, further is a clear offset
+NEIGHBOURS = 80  # pixels at 1080p: only texts this close are compared; nobody reads across a wider gap
 
 
 def near_misses(ts):
@@ -74,11 +77,13 @@ def near_misses(ts):
     for i, a in enumerate(lines):
         for b in lines[i + 1 :]:
             (ax0, ay0, _, ay1), (bx0, by0, _, by1) = box(a), box(b)
+            near = NEIGHBOURS * tk.PX
             same_row = min(ay1, by1) > max(ay0, by0)
+            gap_x = max(bx0 - box(a)[2], ax0 - box(b)[2], 0)
             d = abs(base[id(a)] - base[id(b)])
-            if same_row and lo < d < hi:
+            if same_row and gap_x < near and lo < d < hi:
                 found.append(f"baselines {d / tk.PX:.0f} px apart: '{name(a)}' / '{name(b)}'")
-            near_column = min(abs(ay0 - by1), abs(by0 - ay1)) < 250 * tk.PX and not same_row
+            near_column = not same_row and min(abs(ay0 - by1), abs(by0 - ay1)) < near
             d = abs(ax0 - bx0)
             if near_column and lo < d < hi:
                 found.append(f"left edges {d / tk.PX:.0f} px apart: '{name(a)}' / '{name(b)}'")
