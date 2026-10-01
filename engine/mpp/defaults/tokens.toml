@@ -33,6 +33,7 @@ margin_bottom = 56
 headline_max_w = 1500      # leaves the slide number clear
 content_top = 220          # below a two-line headline
 content_bottom = 950
+draft_label_y = 1024       # the draft label's bottom edge; raise it if the talk's furniture sits there
 ours_side = "left"         # the 180-degree rule for every comparison
 
 [motion]

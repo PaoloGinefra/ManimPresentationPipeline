@@ -33,10 +33,11 @@ def slide_number(n: int):
 
 
 def draft_label(commit: str):
-    """Bottom-right, small: which build this is, so a note on it can be traced to its storyboard."""
+    """Bottom-right, small: which build this is, so a note on it can be traced to its storyboard. A talk
+    with its own furniture in that corner raises it with the `draft_label_y` layout token."""
     t = tk.words(f"draft {commit}", "note", color=tk.STRUCTURE)
     t.lint_ignore = True  # not part of the slide: absent from the final render
-    return t.move_to(tk.px(1920 - tk.MARGIN_X, 1080 - tk.MARGIN_BOTTOM), aligned_edge=DOWN + RIGHT)
+    return t.move_to(tk.px(1920 - tk.MARGIN_X, tk.DRAFT_LABEL_Y), aligned_edge=DOWN + RIGHT)
 
 
 def title_card(title: str, speaker: str = "", date: str = "") -> VGroup:
