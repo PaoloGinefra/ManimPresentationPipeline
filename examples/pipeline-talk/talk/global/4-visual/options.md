@@ -64,3 +64,11 @@ Suggested: 1. A typing terminal is decoration.
 ### S1 (backup). What the build checks
 
 1. (static) Two headlines overlapping, flagged; two seam frames side by side. **Picked.**
+
+## Version 2 (review notes #5 and #7)
+
+Act 2 became one beat per stage. Every stage beat uses one visual, picked without alternatives
+because the author asked for this structure: the cache talk's checkpoint on the card, then the card
+shrinks left and "the author checks" appears on the right, item by item, and the stage ticks. The
+card-changing-form image of version 1 survives as the thread across those beats. Alignment rules are
+now part of the skeleton (note #7).
