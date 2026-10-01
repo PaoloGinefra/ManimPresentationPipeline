@@ -10,3 +10,4 @@ One row per note. Status: open, done, or declined (with a reason). See `pipeline
 | 4 | 2026-10-01 | cb862a7 | 24 | B8.2 | the headline repeats the sentence written under it | visual | new headline for B8.2 in the storyboard; script and greybox regenerated | 6adc23a | done |
 | 5 | 2026-10-01 | 0729213 |  |  | act 2 as one beat per stage: what the stage is, what the author checks before moving on; the cache example as a whole talk in brief and digest, one sentence from the outline on | outline |  |  | open |
 | 6 | 2026-10-01 | 80e73f6 |  |  | the per-stage structure needs 8 minutes, not 6; rehearsal gets its own beat | brief |  |  | open |
+| 7 | 2026-10-01 | 0729213 |  |  | alignment near-misses on many slides: labels off a shared baseline, ragged ladder labels, card content jumping sideways between forms, captions at different heights | design |  |  | open |

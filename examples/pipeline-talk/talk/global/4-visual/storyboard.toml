@@ -1,13 +1,16 @@
 # The talk's text, in one place: every frame's headline, the words that trigger its click, and
 # its narration, which becomes the script and the speaker notes. Edit here, never in scene code
 # or in the generated script. Format: pipeline/guides/talk-storyboards.md.
+#
+# Version 2 (review note #5): act 2 is one beat per stage. B4 and B5 are retired: their IDs are not
+# reused. The stage beats took the next free IDs, B9 to B16; the order lives in `order`.
 
-order = ["B0", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8"]
+order = ["B0", "B1", "B2", "B3", "B9", "B10", "B11", "B12", "B13", "B14", "B15", "B6", "B16", "B7", "B8"]
 backup = ["S1"]
 
 [acts]
 1 = "The problem"
-2 = "The pipeline"
+2 = "The stages"
 3 = "Using it"
 
 # ------------------------------------------------------------------ act 1
@@ -28,7 +31,7 @@ note = "The title card, from talk.toml. HOLD."
 title = "Motion is expensive"
 act = 1
 kind = "beat"
-budget_s = 35
+budget_s = 30
 note = "Transition in: step. Carried in: nothing. Carried out: nothing."
 
 [[B1.frame]]
@@ -36,8 +39,7 @@ head = "An animated talk shows what slides can't."
 trigger = "An animated talk"
 narration = """
 **An animated talk shows what slides can't, and it's expensive to change.** When an idea is a
-process, motion carries it. A queue fills up. A cache warms. The room watches it happen instead of
-reading about it."""
+process, motion carries it. A queue fills. A cache warms. The room watches it happen."""
 boxes = ["queue of requests @ left", "cache @ right"]
 note = "Requests arrive and queue; the cache warms from grey to ours. Why motion: the queue really fills. HOLD."
 
@@ -45,168 +47,258 @@ note = "Requests arrive and queue; the cache warms from grey to ours. Why motion
 head = "Every change to an animation is code and a render."
 trigger = "every frame of that is code"
 narration = """
-But every frame of that is code. And every change means rendering it again. A word you'd fix in a
-second on a slide becomes a scene to rewrite."""
+But every frame of that is code. A word you'd fix in a second on a slide becomes a scene to rewrite
+and render."""
 boxes = ["the same picture, as code @ center"]
-note = "The picture dims; a block of code lines slides over it. HOLD."
+note = "A block of code covers the picture. HOLD."
 
 [B2]
 title = "Notes arrive late"
 act = 1
 kind = "beat"
-budget_s = 40
+budget_s = 25
 note = "Transition in: step. Carried out: the ladder, with its notes."
 
 [[B2.frame]]
 head = "The same note costs more the later it lands."
 trigger = "Most notes arrive"
 narration = """
-**Most notes arrive when the deck is built, and that's where every change costs a render.** Think
-about where a note can land. On a one-page outline, moving a section costs a line. In a script,
-changing a word costs a word. In a finished deck, the same note costs a scene and a render."""
+**Most notes arrive when the deck is built, and that's where every change costs a render.** On an
+outline, a note costs a line. In a finished deck, it costs a scene."""
 boxes = ["ladder: outline, script, storyboard, deck @ center"]
-note = "`ladder.appear()`, rung by rung from the bottom, each wider than the last. No numbers: the cost is not measured (digest G1). HOLD."
+note = "`ladder.appear()`, rung by rung. No numbers: the cost is not measured (digest G1). HOLD."
 
 [[B2.frame]]
 head = "Most notes land at the expensive end."
-trigger = "that's where most notes arrive"
+trigger = "the first time anyone sees the talk"
 narration = """
-And that's where most notes arrive. It's the first time anyone sees the talk. So the feedback comes
-in at the expensive end."""
+And the deck is the first time anyone sees the talk. So that's where the notes land."""
 boxes = ["ladder @ center", "notes pile on the top rung @ top-right"]
-note = "`ladder.pile(notes)`: note cards drop onto the deck rung. HOLD."
+note = "Note cards drop onto the deck rung. HOLD."
 
-# ------------------------------------------------------------------ act 2
 [B3]
 title = "Check where it's cheap"
-act = 2
+act = 1
 kind = "beat"
-budget_s = 35
+budget_s = 25
 note = "Transition in: step. Carried in: the ladder. Carried out: the row of stages, along the bottom."
 
 [[B3.frame]]
 head = "Check each decision where it's cheapest to change."
 trigger = "So check each decision"
 narration = """
-**So check each decision where it's cheapest to change.** That's the whole idea. Split the work into
-stages."""
-boxes = ["row of stages @ bottom-row"]
-note = "The ladder turns on its side: its four rungs become the outline, script, visual and build stages of the row, and the other stages slide in between. Why motion: the rungs are those stages. HOLD."
+**So check each decision where it's cheapest to change.** Split the work into stages. Each one ends
+with something short the author checks, before anything moves on."""
+boxes = ["row of nine stages @ bottom-row"]
+note = "The ladder turns on its side: its rungs become stages of the row, the others slide in. Rehearsal is dashed: optional. HOLD."
 
 [[B3.frame]]
-head = "Each stage ends with something short for the author."
-trigger = "End each one"
-narration = """
-End each one with something short the author can check in a few minutes. The story, on one page.
-The words, read aloud. The pictures, as rough grey boxes. Agents do the work. The author decides,
-and nothing moves on until they do."""
-boxes = ["one page @ left", "read aloud @ center", "grey boxes @ right", "row of stages @ bottom-row"]
-note = "Three checkpoint icons rise above outline, script and visual in turn. HOLD."
+head = "Nine stages, from a brief to a release."
+trigger = "Let's walk through them"
+narration = "Let's walk through them, with a talk about a cache."
+boxes = ["a talk about a cache @ center", "row of nine stages @ bottom-row"]
+note = "A small title card of the cache talk appears above the row. HOLD."
 
-[B4]
-title = "PEAK 1: one sentence, every stage"
-act = 2
-kind = "peak"
-budget_s = 70
-note = "Transition in: step. Carried in: the row. Carried out: the row, and the rendered card above build. STAR: the same card, redrawn at every stage."
-
-[[B4.frame]]
-head = "One sentence changes form at every stage."
-trigger = "Follow one sentence"
-narration = """
-**Follow one sentence through the pipeline, and it changes form at every stage.** Here's a sentence
-from a talk about a cache. The slowest waits halve once the cache is warm. It starts in the source,
-as a result."""
-boxes = ["the sentence, in a page of a paper @ top-left", "row of stages @ bottom-row"]
-note = "`card.form('source')` above the left end of the row. HOLD."
-
-[[B4.frame]]
-head = "The digest copies it out, with its source."
-trigger = "The digest copies it out"
-narration = "The digest copies it out, with where it came from."
-boxes = ["a table row: claim, source @ top-left", "row of stages @ bottom-row"]
-note = "`card.to('digest')`: the page becomes a table row naming its file. HOLD."
-
-[[B4.frame]]
-head = "In the outline, it is one beat with a time budget."
-trigger = "In the outline"
-narration = "In the outline, it's one beat with a time budget."
-boxes = ["a beat row: B3, PEAK, 1:10 @ top", "row of stages @ bottom-row"]
-note = "`card.to('outline')`. HOLD."
-
-[[B4.frame]]
-head = "In the script, it is the line the speaker must say."
-trigger = "In the script"
-narration = "In the script, it's the line the speaker has to say."
-boxes = ["the spine line in bold, support below @ top", "row of stages @ bottom-row"]
-note = "`card.to('script')`. HOLD."
-
-[[B4.frame]]
-head = "In the storyboard, it becomes a frame."
-trigger = "In the storyboard"
-narration = """
-In the storyboard, it becomes a frame. A headline, the words that fire the click, and what's said
-while it's up."""
-boxes = ["head, trigger, narration @ top-right", "row of stages @ bottom-row"]
-note = "`card.to('storyboard')`: three labelled fields, the ID B3.2 in the corner. HOLD."
-
-[[B4.frame]]
-head = "In the greybox, it is a page of rough boxes."
-trigger = "In the greybox"
-narration = "In the greybox, it's a page of rough boxes."
-boxes = ["a slide of grey boxes @ top-right", "row of stages @ bottom-row"]
-note = "`card.to('greybox')`. HOLD."
-
-[[B4.frame]]
-head = "Each form is where one kind of mistake is cheapest to catch."
-trigger = "Only then does anyone render it"
-narration = """
-Only then does anyone render it. **Each form takes a minute to read, and each is where one kind of
-mistake is cheapest to catch.**"""
-boxes = ["the rendered slide: bars halving @ top-right", "row of stages, all ticked to build @ bottom-row"]
-note = "`card.to('render')`: the grey boxes fill in, the slow bar halves. Why motion: rendering is the boxes becoming the picture. HOLD."
-
-[B5]
-title = "One source file"
+# ------------------------------------------------------------------ act 2: one beat per stage
+[B9]
+title = "Brief"
 act = 2
 kind = "beat"
 budget_s = 40
-note = "Transition in: step. Carried in: the row. Carried out: the row."
+note = "Stage beat: the cache talk's brief; then the author's checks; the stage ticks."
 
-[[B5.frame]]
-head = "The storyboard is the one source file."
-trigger = "The storyboard is the one source file"
+[[B9.frame]]
+head = "The brief fixes what the talk is for."
+trigger = "The brief fixes"
 narration = """
-**The storyboard is the one source file. The script and the deck are both made from it.** Every
-click of the talk is one entry. Its headline, its trigger words, its narration. The script you
-rehearse is printed from it. The speaker notes come from it too."""
-boxes = ["storyboard.toml @ center", "script @ left", "deck @ right", "row of stages @ bottom-row"]
-note = "`file.appear()`; the script and the deck are drawn out of it, one after the other. HOLD."
+**The brief fixes what the talk is for, before anyone writes a line.** Here's the brief for the
+cache talk. Who's in the room: the systems group. Ten minutes, at a normal pace. And the one
+sentence they should leave with. A cache that warms itself halves the slowest waits."""
+boxes = ["the cache talk's brief @ center", "row, brief lit @ bottom-row"]
+note = "`card.form('brief')`. HOLD."
 
-[[B5.frame]]
-head = "A scene must play exactly the clicks it lists."
-trigger = "a scene has to play"
+[[B9.frame]]
+head = "The author checks the audience, the slot, the one sentence."
+trigger = "The author checks three things"
 narration = """
-And a scene has to play exactly the clicks it lists, or the build stops. So the words you rehearse
-are the words on screen."""
-boxes = ["storyboard frames and scene clicks, matched one to one @ center", "row of stages @ bottom-row"]
-note = "Frames of the file pair with clicks of a scene; one extra click is struck out in failure. HOLD."
+The author checks three things. Who's in the room. How long, and how fast. And the one sentence.
+Everything after this is measured against it."""
+boxes = ["the brief, shrunk @ left", "the author checks @ right", "row, brief ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('brief')`. HOLD."
 
-[B6]
-title = "PEAK 2: a late note goes home"
+[B10]
+title = "Digest"
+act = 2
+kind = "beat"
+budget_s = 35
+
+[[B10.frame]]
+head = "The digest lists what the talk could say, with sources."
+trigger = "The digest lists"
+narration = """
+**The digest lists everything the talk could say, each with its source.** Here, three claims, each
+pointing at the file it comes from. One of them is the result. The slowest waits halve once the
+cache is warm."""
+boxes = ["three claims, each with its file @ center", "row, digest lit @ bottom-row"]
+note = "`card.form('digest')`: three rows; the result is in ours. HOLD."
+
+[[B10.frame]]
+head = "The author sorts every item and answers every gap."
+trigger = "The author marks each one"
+narration = """
+The author marks each one must, could, or leave out. And answers every gap the agent found."""
+boxes = ["the digest, shrunk @ left", "the author checks @ right", "row, digest ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('digest')`. HOLD."
+
+[B11]
+title = "PEAK 1: outline, and one sentence"
 act = 2
 kind = "peak"
-budget_s = 65
-note = "Transition in: step. Carried in: the row. Carried out: the row, everything after script lit again. STAR: the note travelling back along the row."
+budget_s = 40
+note = "STAR: the result lifts out of the digest and becomes beat B3 of the cache talk's outline."
+
+[[B11.frame]]
+head = "The outline is the story on one page."
+trigger = "The outline is the story"
+narration = """
+**The outline is the story on one page.** First, a few small options for each decision. The hook,
+the thread, the peaks. The author picks. Then one page. Every beat, its one line, its time."""
+boxes = ["options, then one page of beats @ center", "row, outline lit @ bottom-row"]
+note = "`card.form('options')`, then `card.form('outline')`. HOLD."
+
+[[B11.frame]]
+head = "From here on, follow one sentence."
+trigger = "From here on"
+narration = """
+From here on, let's follow one sentence. The result becomes beat three of the cache talk, with a
+minute and ten seconds."""
+boxes = ["beat B3 of the outline, lit @ center", "row, outline lit @ bottom-row"]
+note = "The B3 row lights; the other rows fade. Why motion: the talk narrows to one sentence. HOLD."
+
+[[B11.frame]]
+head = "The author checks the picks and the page."
+trigger = "The author checks the picks"
+narration = """
+The author checks the picks, and the story on one page. A wrong turn costs a line here."""
+boxes = ["the outline, shrunk @ left", "the author checks @ right", "row, outline ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('outline')`. HOLD."
+
+[B12]
+title = "Script"
+act = 2
+kind = "beat"
+budget_s = 40
+
+[[B12.frame]]
+head = "The script is what the speaker says, written for the ear."
+trigger = "The script is what the speaker says"
+narration = """
+**The script is what the speaker says, written for the ear.** Short sentences, one idea each. Our
+sentence is now the line the speaker has to say, in bold, with the support around it."""
+boxes = ["the spine line in bold, support below @ center", "row, script lit @ bottom-row"]
+note = "`card.form('script')`. HOLD."
+
+[[B12.frame]]
+head = "The author reads every act aloud."
+trigger = "The author reads every act aloud"
+narration = """
+The author reads every act aloud. The time comes back against the slot. And a line they'd say
+differently, they say, and the script takes their words."""
+boxes = ["the script, shrunk @ left", "the author checks @ right", "row, script ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('script')`. HOLD."
+
+[B13]
+title = "Visual"
+act = 2
+kind = "beat"
+budget_s = 45
+
+[[B13.frame]]
+head = "The storyboard splits the script into clicks."
+trigger = "The storyboard splits"
+narration = """
+**The storyboard splits the script into clicks.** Our sentence becomes one frame. A headline, the
+words that fire the click, and what's said while it's up. From now on the storyboard holds every
+word, and the script is printed from it."""
+boxes = ["head, trigger, narration @ center", "row, visual lit @ bottom-row"]
+note = "`card.form('storyboard')`. HOLD."
+
+[[B13.frame]]
+head = "The greybox shows every slide as rough boxes."
+trigger = "The greybox shows"
+narration = "The greybox shows every slide as rough grey boxes, with its words underneath."
+boxes = ["a slide of grey boxes @ center", "row, visual lit @ bottom-row"]
+note = "`card.form('greybox')`. HOLD."
+
+[[B13.frame]]
+head = "The author checks the greybox, slide by slide."
+trigger = "The author checks it slide by slide"
+narration = """
+The author checks it slide by slide. One claim per slide. Each click on the word it shows. Nothing
+is rendered yet."""
+boxes = ["the greybox, shrunk @ left", "the author checks @ right", "row, visual ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('visual')`. HOLD."
+
+[B14]
+title = "Design"
+act = 2
+kind = "beat"
+budget_s = 25
+
+[[B14.frame]]
+head = "The design system fixes the look once."
+trigger = "The design system fixes the look"
+narration = """
+**The design system fixes the look once, on one page.** Colours with their roles, the type, how each
+recurring object is drawn."""
+boxes = ["the specimen: colours, type @ center", "row, design lit @ bottom-row"]
+note = "`card.form('specimen')`. HOLD."
+
+[[B14.frame]]
+head = "The author checks the specimen."
+trigger = "The author checks that one page"
+narration = """
+The author checks that one page, the specimen. Or starts from a house style they already have."""
+boxes = ["the specimen, shrunk @ left", "the author checks @ right", "row, design ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('design')`. HOLD."
+
+[B15]
+title = "Build"
+act = 2
+kind = "beat"
+budget_s = 35
+
+[[B15.frame]]
+head = "The build renders the deck, drafts first."
+trigger = "The build renders the deck"
+narration = """
+**The build renders the deck, act by act, as small drafts first.** Every slide carries a plain
+number, and the draft carries the commit it was built from. Checks run on every click."""
+boxes = ["the rendered slide, a draft @ center", "row, build lit @ bottom-row"]
+note = "`card.form('render')`: the grey boxes fill in, the slow bar halves. HOLD."
+
+[[B15.frame]]
+head = "The author checks stills, then clicks through."
+trigger = "The author looks at stills"
+narration = "The author looks at stills of every slide, then clicks through each act."
+boxes = ["the slide, shrunk @ left", "the author checks @ right", "row, build ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('build')`. HOLD."
+
+[B6]
+title = "PEAK 2: rehearsal, a late note goes home"
+act = 2
+kind = "peak"
+budget_s = 55
+note = "Transition in: step. Carried in: the row. STAR: the note travelling back along the row."
 
 [[B6.frame]]
-head = "A late note goes back to the earliest stage it changes."
-trigger = "A late note goes back"
+head = "Rehearsal: a late note goes back to the earliest stage it changes."
+trigger = "In rehearsal"
 narration = """
-**A late note goes back to the earliest stage it changes, and everything after it is rebuilt.** Say
-a reviewer writes, slide seven, say halves, not forty-eight percent."""
-boxes = ["note: slide 7, say halves @ top-right", "row of stages @ bottom-row"]
-note = "`note.appear()` above the build end of the row. HOLD."
+**In rehearsal, a late note goes back to the earliest stage it changes, and everything after it is
+rebuilt.** Say a reviewer writes, slide seven, say halves, not forty-eight percent."""
+boxes = ["note: slide 7, say halves @ top-right", "row, rehearsal lit @ bottom-row"]
+note = "`note.appear()` above rehearsal. HOLD."
 
 [[B6.frame]]
 head = "Slide 7 is beat 3, frame 2 in the draft the reviewer saw."
@@ -214,16 +306,16 @@ trigger = "Slide seven is just the number"
 narration = """
 Slide seven is just the number on the screen. The agent looks up which frame that was, in the draft
 the reviewer saw. Beat three, frame two."""
-boxes = ["note, now labelled B3.2 @ top-right", "row of stages @ bottom-row"]
+boxes = ["note, now labelled B3.2 @ top-right", "row @ bottom-row"]
 note = "`note.label('slide 7 = B3.2')`. HOLD."
 
 [[B6.frame]]
 head = "The note is said back with its stage, and fixed there."
 trigger = "Then it says the note back"
 narration = """
-Then it says the note back, with its stage. This one's a script note. The author confirms. The fix
-goes into the storyboard, not into the scene."""
-boxes = ["note travels back to script @ top", "row of stages, script lit @ bottom-row"]
+Then it says the note back, with its stage. A script note. The author confirms. The fix goes into
+the storyboard, not into the scene."""
+boxes = ["note travels back to script @ top", "row, script lit @ bottom-row"]
 note = "`note.tag('script')`, then `note.travel_to('script')`. Why motion: the note really goes back. HOLD."
 
 [[B6.frame]]
@@ -232,59 +324,78 @@ trigger = "made again"
 narration = """
 The script and the deck are made again, and only what changed comes back for a look. **The note
 lands where it belongs, so it costs a sentence again.**"""
-boxes = ["one changed still @ top-right", "row of stages, ripple from script to build @ bottom-row"]
-note = "`row.ripple(from='script')`; one still, the changed frame, rises above build. HOLD."
+boxes = ["one changed still @ top-right", "row, ripple from script to build, rehearsal ticked @ bottom-row"]
+note = "`row.ripple(from='script')`; one still rises; rehearsal ticks. HOLD."
+
+[B16]
+title = "Final"
+act = 2
+kind = "beat"
+budget_s = 25
+
+[[B16.frame]]
+head = "The final stage releases the talk."
+trigger = "The final stage releases"
+narration = """
+**The final stage releases the talk.** The full-quality deck, a static copy, the script, and the
+design system, in one folder. It's refused while a stage is unapproved or a note is open."""
+boxes = ["the release folder @ center", "row, final lit @ bottom-row"]
+note = "`card.form('release')`. HOLD."
+
+[[B16.frame]]
+head = "The author clicks through once, end to end."
+trigger = "The author clicks through it once"
+narration = "The author clicks through it once, end to end."
+boxes = ["the release, shrunk @ left", "the author checks @ right", "row, every stage ticked @ bottom-row"]
+note = "`checks.appear()`, then `row.tick('final')`. HOLD."
 
 # ------------------------------------------------------------------ act 3
 [B7]
 title = "Using it"
 act = 3
 kind = "beat"
-budget_s = 35
+budget_s = 30
 note = "Transition in: a quiet crossfade for the act. Carried in: the row. Carried out: the row."
 
 [[B7.frame]]
 head = "Clone it, write only in talk/, point any agent at AGENTS.md."
-trigger = "Clone the repository"
+trigger = "To use it"
 narration = """
-**Clone the repository, write only in the talk folder, and point any agent at the agents file.**
-The instructions are plain text, so any coding agent can follow them."""
-boxes = ["the repository's folders, talk/ lit @ left", "AGENTS.md @ right", "row of stages @ bottom-row"]
+**To use it, clone the repository, write only in the talk folder, and point any agent at the agents
+file.** The instructions are plain text, so any coding agent can follow them."""
+boxes = ["the repository's folders, talk/ lit @ left", "AGENTS.md @ right", "row @ bottom-row"]
 note = "`tree.appear()`, then `tree.light('talk/')`. HOLD."
 
 [[B7.frame]]
 head = "One command checks the machine; one builds the deck, offline."
 trigger = "One command checks"
-narration = """
-One command checks your machine. One builds the deck, and it works offline. Your talk lives in one
-folder, so updates to the pipeline never touch it. And a shorter cut of the same talk keeps only
-what's different."""
-boxes = ["mpp doctor, mpp build @ right", "the folders @ left", "row of stages @ bottom-row"]
+narration = "One command checks your machine. One builds the deck, and it works offline."
+boxes = ["mpp doctor, mpp build @ right", "the folders @ left", "row @ bottom-row"]
 note = "The two commands appear beside the tree. HOLD."
 
 [B8]
 title = "PEAK 3: this slide was a grey box"
 act = 3
 kind = "peak"
-budget_s = 40
+budget_s = 30
 note = "Transition in: step. Carried in: the row. STAR: the grey boxes turning into this slide."
 
 [[B8.frame]]
 head = "This slide started as a grey box."
 trigger = "This talk was made this way"
 narration = "**This talk was made this way. This slide started as a grey box.**"
-boxes = ["the closing slide, as grey boxes @ center", "row of stages @ bottom-row"]
-note = "The closing slide's own greybox, drawn as the greybox page draws it. HOLD."
+boxes = ["the closing slide, as grey boxes @ center", "row @ bottom-row"]
+note = "The closing slide's own greybox. HOLD."
 
 [[B8.frame]]
 head = "Every stage was checked before the next."
-trigger = "Brief, digest, outline"
+trigger = "Nine stages"
 narration = """
-Brief, digest, outline, script, storyboard, greybox. Then the render. Each stage checked before the
-next. That's how a late note goes back to costing a sentence. **Build a talk the way you build
-software. In stages, each checked cheaply by its author, from one source file.**"""
-boxes = ["the one sentence @ center", "row of stages, every one ticked @ bottom-row"]
-note = "The grey boxes fill in as the stages tick, left to right, ending on the one sentence. HOLD."
+Nine stages, each checked before the next. That's how a late note goes back to costing a sentence.
+**Build a talk the way you build software. In stages, each checked cheaply by its author, from one
+source file.**"""
+boxes = ["the one sentence @ center", "row, every stage ticked @ bottom-row"]
+note = "The grey boxes fill in, ending on the one sentence. HOLD."
 
 # ------------------------------------------------------------------ backup
 [S1]
