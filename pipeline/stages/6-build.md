@@ -27,8 +27,10 @@ The approved storyboard and design system.
    `tokens.toml`. No literal colours, sizes or headlines in scene code.
 2. Render a draft: `uv run mpp build --act N`. Drafts are low quality (720p, 24 fps), labelled as
    drafts, and show the build commit small in a corner.
-3. Run `uv run mpp check`: storyboard problems, layout lint (text over text, text off the frame),
-   and seams between slides. A beat whose clicks differ from its storyboard frames fails to build.
+3. Run `uv run mpp check`: storyboard problems, layout lint (text over text, text off the frame,
+   texts whose baselines or left edges miss each other by a few pixels), and seams between slides.
+   Set labels that share a line with `tk.set_baseline`, not by centring them: centring aligns ink,
+   and a word with a descender then sits higher than one without. A beat whose clicks differ from its storyboard frames fails to build.
    Fix every failure before showing anything.
 4. Show the author stills: `uv run mpp preview 7-12` (slide numbers, ranges, IDs like `B3.2`, or
    whole beats like `B3`). It writes `build/<variant>/preview.html`, one still per slide.

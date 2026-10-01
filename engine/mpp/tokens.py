@@ -8,7 +8,7 @@ back row actually sees.
 """
 
 import manimpango
-from manim import MathTex, Mobject, Tex, Text, TexTemplate, config
+from manim import UP, MathTex, Mobject, Tex, Text, TexTemplate, VGroup, config
 
 from .project import REPO, Talk
 
@@ -56,6 +56,30 @@ def math(*tex: str, role: str = "label", color=None, **kw) -> MathTex:
     if _math_cap is None:  # measured on first use: a talk without math never needs LaTeX
         _math_cap = MathTex(r"\mathrm{H}", tex_template=TEX, font_size=100).height / 100
     return MathTex(*tex, tex_template=TEX, font_size=CAP[role] * PX / _math_cap, color=color or COLORS["ink"], **kw)
+
+
+_BASELINE: dict = {}
+
+
+def baseline(text: Text) -> float:
+    """The y of a one-line text's baseline, where letters without descenders sit.
+
+    A text's box is its ink, so "brief" and "digest" centred on one line sit at different heights
+    (the g hangs below). Rendering the same string with an H after it shows where the line is; the
+    offset is cached per string and style, as a fraction of the text's height."""
+    key = (text.original_text, text.font, text.weight, text.slant)
+    if key not in _BASELINE:
+        probe = Text(text.original_text + "H", font=text.font, font_size=100, weight=text.weight, slant=text.slant)
+        n = len(probe.submobjects) - 1
+        ink = VGroup(*probe.submobjects[:n])
+        _BASELINE[key] = (probe.submobjects[n].get_bottom()[1] - ink.get_center()[1]) / ink.height
+    return text.get_center()[1] + _BASELINE[key] * text.height
+
+
+def set_baseline(text: Text, y: float) -> Text:
+    """Move a one-line text so its baseline is at `y` (scene units): labels side by side then share
+    a line whatever their letters."""
+    return text.shift(UP * (y - baseline(text)))
 
 
 def apply_style() -> None:

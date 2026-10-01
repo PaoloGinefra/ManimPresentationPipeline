@@ -1,9 +1,9 @@
 """Layout lint: what a person would catch by looking at a frame, checked from geometry instead.
 
-With MPP_LINT set (the build's check pass sets it), every beat checks the picture it holds at each click for
-text that overlaps other text, and for text lying outside the frame, and appends what it finds to
-<renders>/lint/<beat>.txt. It reads bounding boxes, so it cannot see colour or taste; it catches the
-collisions that a contact sheet shows.
+With MPP_LINT set (the build's check pass sets it), every beat checks the picture it holds at each
+click for text that overlaps other text, text lying outside the frame, and texts that almost align
+and do not, and appends what it finds to <renders>/lint/<beat>.txt. It reads geometry, so it cannot
+see colour or taste; it catches the collisions and near-misses that a contact sheet shows.
 """
 
 import os
@@ -59,6 +59,32 @@ def name(m):
     return " ".join(str(t).split())[:40]
 
 
+NEAR = (1, 10)  # pixels at 1080p: closer than this is meant to align, further is a clear offset
+
+
+def near_misses(ts):
+    """Texts that almost align and do not: baselines on one row, or left edges in one column, a few
+    pixels apart. Almost-aligned reads as a mistake; align exactly or offset clearly."""
+    from . import tokens as tk
+
+    lo, hi = NEAR[0] * tk.PX, NEAR[1] * tk.PX
+    lines = [t for t in ts if isinstance(t, Text) and "\n" not in t.original_text]
+    base = {id(t): tk.baseline(t) for t in lines}
+    found = []
+    for i, a in enumerate(lines):
+        for b in lines[i + 1 :]:
+            (ax0, ay0, _, ay1), (bx0, by0, _, by1) = box(a), box(b)
+            same_row = min(ay1, by1) > max(ay0, by0)
+            d = abs(base[id(a)] - base[id(b)])
+            if same_row and lo < d < hi:
+                found.append(f"baselines {d / tk.PX:.0f} px apart: '{name(a)}' / '{name(b)}'")
+            near_column = min(abs(ay0 - by1), abs(by0 - ay1)) < 250 * tk.PX and not same_row
+            d = abs(ax0 - bx0)
+            if near_column and lo < d < hi:
+                found.append(f"left edges {d / tk.PX:.0f} px apart: '{name(a)}' / '{name(b)}'")
+    return found
+
+
 def check(scene, label):
     if not os.environ.get("MPP_LINT"):
         return
@@ -87,6 +113,7 @@ def _check(scene, label):
             o = overlap(box(a), box(b))
             if o > 0.15:
                 found.append(f"overlap {o:.0%}: '{name(a)}' / '{name(b)}'")
+    found += near_misses(ts)
     W, H = config.frame_width / 2 + MARGIN, config.frame_height / 2 + MARGIN
     for t in ts:  # only text: a picture past the edge is usually a zoom, cropped on purpose
         x0, y0, x1, y1 = box(t)
