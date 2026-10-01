@@ -6,3 +6,6 @@ releases/
 media/
 *.tmp
 .native/
+
+# The example's release is tracked, so its outputs can be read without building anything.
+!examples/pipeline-talk/releases/

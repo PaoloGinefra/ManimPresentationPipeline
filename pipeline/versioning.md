@@ -24,7 +24,8 @@ number, so the history of every decision stays in git.
 
 `uv run mpp release [-v VARIANT]` tags `<variant>/vN` (`global/vN` for the main talk) and writes the
 files to `releases/<variant>/vN/`. The `releases/` folder is outside git: rendered videos are
-large, and any release can be rebuilt from its tag.
+large, and any release can be rebuilt from its tag. The one exception is the repository's own
+example, whose release is tracked so it can be read without building anything.
 
 ## Drafts
 

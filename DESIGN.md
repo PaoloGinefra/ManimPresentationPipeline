@@ -134,7 +134,8 @@ Upstream improvements merge cleanly because the author's content is only under `
 - One commit per step.
 - Stage tags per approval: `global/digest-1`, `<variant>/outline-2`.
 - Release tags per variant: `<variant>/v1`.
-- Release files go to `releases/<variant>/vN/`, outside git.
+- Release files go to `releases/<variant>/vN/`, outside git (except the example's, tracked so it
+  can be read without building).
 
 ## CLI: `uv run mpp <command>`
 

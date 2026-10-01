@@ -15,6 +15,22 @@ worked example of what each stage produces.
 | 6 Build | `talk/global/6-build/beats/`, `components/pipeline.py` |
 | Review | `talk/global/7-review/log.md`: four notes on the first draft, one of them sent back to the visual stage |
 
+## The result
+
+The release, tracked in git so it can be read without building anything:
+
+| File | What |
+|---|---|
+| [`talk.html`](releases/global/v1/talk.html) | the animated deck: one offline file, speaker notes included (download and open it) |
+| [`talk.pdf`](releases/global/v1/talk.pdf) | the static deck, one page per click |
+| [`script.pdf`](releases/global/v1/script.pdf) | the script, with a cue at every click |
+| [`specimen.html`](releases/global/v1/specimen.html) | the design system's specimen page |
+| [`design.md`](releases/global/v1/design.md), [`tokens.toml`](releases/global/v1/tokens.toml) | the design system, with every token resolved |
+
+The high-level storyboard is [`skeleton.md`](talk/global/4-visual/skeleton.md), the frame-by-frame
+one [`storyboard.toml`](talk/global/4-visual/storyboard.toml), and both as a page
+[`greybox.html`](talk/global/4-visual/greybox.html).
+
 ## Build it
 
 From this folder:
