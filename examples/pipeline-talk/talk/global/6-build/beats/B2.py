@@ -15,7 +15,8 @@ class B2(Beat):
         self.remove(*rungs, cheap, dear)  # faded in part by part: hand over the ladder as one object
         self.add(lad)
 
-        top = rungs[-1][0]
-        notes = VGroup(*[note("note", width=130) for _ in range(3)]).arrange(RIGHT, buff=px_w(16))
-        notes.next_to(top, UP, buff=px_w(70))
+        # the notes land on the top rung's line, after its caption
+        notes = VGroup(*[note("note", width=130, size="note") for _ in range(3)]).arrange(RIGHT, buff=px_w(16))
+        notes.next_to(dear, RIGHT, buff=px_w(40))
+        notes.shift(UP * (tk.baseline(dear) - tk.baseline(notes[0][1])))  # on the caption's line
         self.click(LaggedStart(*[FadeIn(n, shift=DOWN * 0.5) for n in notes], lag_ratio=0.35, run_time=1.6))

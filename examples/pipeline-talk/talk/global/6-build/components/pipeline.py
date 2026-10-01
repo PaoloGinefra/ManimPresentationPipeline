@@ -208,7 +208,7 @@ def card(form: str) -> VGroup:
             chip = RoundedRectangle(corner_radius=0.04, width=px_w(64), height=px_w(64), stroke_width=0,
                                     fill_color=tk.COLORS[role], fill_opacity=1)
             name = _caption(role)
-            name.set_x(chip.get_x())
+            name.move_to(chip.get_left(), aligned_edge=LEFT)
             tk.set_baseline(name, chip.get_bottom()[1] - px_w(40))
             chips.add(VGroup(chip, name))
         chips.arrange(RIGHT, buff=px_w(40), aligned_edge=UP)
@@ -247,6 +247,8 @@ def card(form: str) -> VGroup:
     out = VGroup(frame, body)
     if corner is not None:
         corner.move_to(frame.get_corner(UP + RIGHT) + [-px_w(PAD), -px_w(PAD), 0], aligned_edge=UP + RIGHT)
+        if form in ("greybox", "render"):  # the number sits on the headline's line
+            tk.set_baseline(corner, tk.baseline(body[0]))
         out.add(corner)
     out.role = "card"
     out.form = form

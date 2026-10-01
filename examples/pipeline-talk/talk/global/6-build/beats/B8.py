@@ -17,6 +17,6 @@ class B8(Beat):
         grey = VGroup(*[Rectangle(width=line.width, height=px_w(52), stroke_width=0, fill_color=tk.FAINT,
                                   fill_opacity=1).move_to(line) for line in sentence])
         label = tk.words("the one sentence", "note", color=tk.MUTED).move_to(grey[1])
-        self.click(*self.wipe(keep=[stages]), FadeIn(grey), FadeIn(label), Transform(stages, row(done=6)))
+        self.click(*self.wipe(keep=[stages]), FadeIn(grey), FadeIn(label), Transform(stages, row(done=9)))
 
-        self.click(FadeTransform(VGroup(grey, label), sentence), Transform(stages, row(done=8)), run_time=2)
+        self.click(FadeTransform(VGroup(grey, label), sentence), Transform(stages, row(done=9)), run_time=2)
