@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 KINDS = {"beat", "peak", "stop"}
 REGIONS = {"top-left", "top", "top-right", "left", "center", "right", "bottom-left", "bottom", "bottom-right"}
+REGIONS |= {"top-row", "middle-row", "bottom-row"}  # the full width: a timeline, a caption bar
 FRAME_FIELDS = ("head", "trigger", "narration")
 
 

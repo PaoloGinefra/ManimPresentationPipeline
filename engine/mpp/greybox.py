@@ -20,6 +20,9 @@ CELLS = {
     "bottom-left": (3, 1),
     "bottom": (3, 2),
     "bottom-right": (3, 3),
+    "top-row": (1, "1 / 4"),
+    "middle-row": (2, "1 / 4"),
+    "bottom-row": (3, "1 / 4"),
 }
 assert set(CELLS) == REGIONS
 

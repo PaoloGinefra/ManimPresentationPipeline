@@ -272,8 +272,9 @@ carried in and out, and the STAR image on peaks. Frame fields:
   and the speaker notes;
 - `boxes` (optional): the rough layout, a list of `"label @ region"`; the region is one of
   `top-left`, `top`, `top-right`, `left`, `center`, `right`, `bottom-left`, `bottom`,
-  `bottom-right`, the area under the headline split three by three. `mpp greybox` draws each as
-  a labelled grey box;
+  `bottom-right`, the area under the headline split three by three, or `top-row`, `middle-row`,
+  `bottom-row` for something that spans the width. `mpp greybox` draws each as a labelled grey
+  box;
 - `note`: for the builder: component verbs where a component exists, prose where it does not,
   a *why motion* line for any non-trivial animation, and HOLD or AUTO at the end.
 
