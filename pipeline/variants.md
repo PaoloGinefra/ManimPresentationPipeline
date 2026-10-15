@@ -21,7 +21,11 @@ Create one with `uv run mpp new-variant <name>`.
 - **Markdown and other files** override whole: the variant's copy replaces the global one.
 - **TOML files** merge key by key: the variant file holds only the keys it changes. Tables merge
   recursively; any other value, including a list, is replaced whole.
-- One level only. A variant cannot build on another variant.
+- A variant may build on another variant: `base = "<name>"` in its own `0-brief/talk.toml`. The cascade
+  is then the variant, its base (and the base's base), then `global/`. Use it when a new cut starts from
+  an existing variant's scenes rather than from global's. Beat files share one `beats` package name, so
+  the base's beat classes are imported by file:
+  `D2 = load_layer_module("6-build/beats/defence_act1.py").D2` (from `mpp.project`).
 
 ## Beat order
 

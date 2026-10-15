@@ -126,7 +126,8 @@ Upstream improvements merge cleanly because the author's content is only under `
 - A variant folder holds only what differs; a file is looked up in the variant first, then in `global/`.
 - Markdown files override whole; TOML files merge key by key.
 - A variant lists its beat order; leaving a beat out removes it.
-- One level only.
+- A variant may build on another: `base = "<name>"` in its `0-brief/talk.toml` puts that variant's layer
+  between it and `global/`. Its beat classes are imported by file, with `mpp.project.load_layer_module`.
 - A change in `global/` lists and rebuilds every variant it affects.
 
 ## Versioning

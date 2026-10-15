@@ -1,7 +1,9 @@
 """Where a talk's files are, with the variant cascade applied.
 
 A talk is `talk/global/` plus, optionally, one variant folder `talk/variants/<name>/` holding only
-what differs. A file is looked up in the variant first, then in `global/`. TOML files merge key by
+what differs. A variant may build on another one (`base = "<name>"` in its own `0-brief/talk.toml`),
+whose layer then sits between it and `global/`. A file is looked up in the variant first, then in its
+bases, then in `global/`. TOML files merge key by
 key instead (tables recursively, anything else replaced whole), over the engine's defaults where it
 has some. Everything the engine and the CLI read about a talk goes through here, so the cascade has
 one definition.
@@ -45,10 +47,19 @@ class Talk:
         self.variant = variant or None
         self.commit = commit
         self.name = self.variant or "global"
-        self.layers = [f"talk/variants/{self.variant}"] if self.variant else []
+        self.layers = []
+        name, seen = self.variant, []
+        while name:  # a variant may build on another (`base` in its talk.toml): its layer sits beneath
+            if name in seen:
+                raise ValueError(f"variant {self.variant!r}: its bases loop ({' -> '.join([*seen, name])})")
+            layer = f"talk/variants/{name}"
+            if not self._exists(layer):
+                raise FileNotFoundError(f"no variant {name!r}: {layer}/ does not exist")
+            seen.append(name)
+            self.layers.append(layer)
+            own = self._read_layer(layer, "0-brief/talk.toml")
+            name = tomllib.loads(own).get("base") if own else None
         self.layers.append("talk/global")
-        if self.variant and not self._exists(self.layers[0]):
-            raise FileNotFoundError(f"no variant {self.variant!r}: talk/variants/{self.variant}/ does not exist")
 
     @classmethod
     def current(cls) -> "Talk":
@@ -137,3 +148,24 @@ class Talk:
     def exports(self) -> Path:
         """Draft decks and stills for the author: build/<variant>/."""
         return self.root / "build" / self.name
+
+
+
+def load_layer_module(rel: str):
+    """Import a module from the talk's layers by its file (`6-build/beats/defence_act1.py`), the first
+    layer that has it winning. Beat files share one `beats` package name across layers, so a variant
+    built on another imports that variant's beat classes this way: `load_layer_module(...).D2`."""
+    import importlib.util
+    import sys
+
+    talk = Talk.current()
+    path = talk.path(rel)
+    if path is None:
+        raise FileNotFoundError(f"{rel}: in none of {talk.layers}")
+    name = "mpp_layer_" + "_".join(Path(rel).with_suffix("").parts).replace("-", "_")
+    if name not in sys.modules:
+        spec = importlib.util.spec_from_file_location(name, path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[name] = module
+        spec.loader.exec_module(module)
+    return sys.modules[name]
