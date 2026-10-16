@@ -146,6 +146,11 @@ def run(cmd, cwd, env, log=None, ok=lambda code, text: code == 0) -> bool:
     return ok(r.returncode, text)
 
 
+def _dark(hex_color: str) -> bool:
+    r, g, b = (int(hex_color.lstrip("#")[i:i + 2], 16) for i in (0, 2, 4))
+    return .2126 * r + .7152 * g + .0722 * b < 128
+
+
 def build(
     talk: Talk,
     beats: list[str] | None = None,
@@ -259,6 +264,7 @@ def build(
     if name is None:
         name = f"{quality}-{'-'.join(selected)}" if beats else f"{quality}-act{act}" if act is not None else quality
     seed_revealjs()
+    ground = talk.tokens()["colors"]["ground"]
     export_env = dict(os.environ)
     folder = ["--folder", renders / "slides"]
     out = [exports / f"{name}.html", exports / f"{name}.pdf"]
@@ -276,6 +282,10 @@ def build(
                 "--offline",
                 "-cprogress=true",
                 "-chash=true",
+                # the page behind the videos is the talk's ground: reveal.js shows it for a frame while the
+                # next slide's video starts, and manim-slides' black default flashes between white slides
+                f"-cbackground_color={ground}",
+                f"-creveal_theme={'black' if _dark(ground) else 'white'}",
             ],
             renders,
             export_env,
