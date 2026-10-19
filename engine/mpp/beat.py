@@ -78,6 +78,16 @@ class Beat(Slide):
         if self.label is not None:
             self.add(self.label)
 
+    def loop(self, *animations, **play_kwargs):
+        """End the current frame on a loop: these animations repeat until the presenter's next click.
+
+        For motion that illustrates while the speaker talks (a recorded episode, a process that cycles),
+        never for a change the narration names. Call it last in a frame: the loop is its own slide, and the
+        next `click` ends it. Make the animations start and end in states that join, or the loop jumps."""
+        notes = spoken(self.frames[self.n - 1]["narration"]) if self.n else ""
+        self.next_slide(loop=True, notes=notes)
+        self.play(*animations, **play_kwargs)
+
     def click(self, *animations, headline: bool = True, pan=None, zoomed_head=None, **play_kwargs):
         """Start the next frame: the presenter's click lands here.
 
