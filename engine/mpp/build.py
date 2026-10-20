@@ -280,7 +280,8 @@ def build(
                 "html",
                 "--one-file",
                 "--offline",
-                "-cprogress=true",
+                # reveal.js's own progress bar along the bottom; off for a talk that draws its own tracker
+                f"-cprogress={'true' if talk.config().get('build', {}).get('progress', True) else 'false'}",
                 "-chash=true",
                 # the page behind the videos is the talk's ground: reveal.js shows it for a frame while the
                 # next slide's video starts, and manim-slides' black default flashes between white slides
