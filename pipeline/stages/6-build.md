@@ -43,6 +43,27 @@ The approved storyboard and design system.
 5. Apply notes (`feedback.md`), then show only what changed: `uv run mpp preview --changed`.
 6. When the stills are approved, the author clicks through the act's draft deck.
 
+## The order of passes
+
+Content first, then the passes that depend on it, in this order:
+
+1. **Content.** Every frame shows the right thing; the author approves the stills.
+2. **Transitions.** Only once content is frozen: a transition designed between two slides is undone
+   when either slide changes. Carry objects across cuts where they are the same thing. Look at
+   frames sampled *through* each transition, not only its ends: an object reused from a scene built
+   for another sequence can fly in from where it sat in a slide this talk skips.
+3. **Furniture.** Tracker, anchors and credits, in the regions the design reserved.
+4. **Final render.**
+
+A late content change sends the pass order back to step 1 for the beats it touches.
+
+## Backups
+
+Build the held list (stage 2) as backup beats after the closing slide. A backup is reached by
+jumping to it during questions, so it has no transitions: every frame appears complete at once,
+starts from an empty slide, carries a visible mark that it is a backup, and is grouped by the
+question it answers (results, theory, method, limits). Reuse existing scenes where they exist.
+
 Do not edit scene code while a build is running; beats hand state to each other and a mixed
 build is inconsistent.
 

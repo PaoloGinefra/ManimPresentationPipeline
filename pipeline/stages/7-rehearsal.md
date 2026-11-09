@@ -16,6 +16,10 @@ The approved draft deck and script, and the reviewers' notes (by slide number).
 4. After the author approves the plan, apply it stage by stage, re-approving only what changed.
 5. Record every note, its stage, its fix and its commit in `7-review/log.md`.
 
+Before the trial, the author does one timed run alone, clicking through the deck. Mark three or
+four deliberate pauses in the script, at the anchors: the freed time from compression is only
+useful if it becomes pauses, not faster speech.
+
 If the talk must get shorter, propose whole beats to cut or move to backup, never tighter
 wording.
 

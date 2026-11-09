@@ -96,3 +96,7 @@ Every command takes `-v NAME` for a variant; without it, the main talk (`global`
   reused or renumbered; a new beat takes the next free number, and the order lives in the
   storyboard's `order` list. Slides show plain numbers; see `feedback.md` for the conversion.
 - One commit per step, named after the stage (`versioning.md`).
+- When a frame has two credible designs, show both as stills before building either.
+- Build in passes: content, then transitions, then furniture, then the final render
+  (`stages/6-build.md`). Transitions designed before the content is frozen are designed twice.
+- Every number on screen or in the narration traces to the digest, in its unit and condition.

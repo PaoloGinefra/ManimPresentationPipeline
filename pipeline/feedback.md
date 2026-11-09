@@ -28,6 +28,23 @@ How author and reviewer notes turn into changes, at any stage.
    text.
 7. Log it (below).
 
+## Notes from an external reviewer
+
+A reviewer (an advisor, a colleague) usually gives a handful of general remarks rather than
+slide-by-slide notes. Before acting:
+
+1. **List them**, each in one line.
+2. **Triage each one**: accept, accept in part, needs clarification, or disagree, with the reason.
+   Do not accept everything: a reviewer's fix ("add the full citation") can work against another of
+   their remarks ("too much text").
+3. **Find shared causes.** Several remarks often come from one root ("too much content" explains
+   speaking fast, moving fast and seeming confusing). Fix the root, then check which remarks remain.
+4. **Order them**: the root causes first, then by earliest stage; quick independent fixes (a bug)
+   can go at once.
+5. **Collect the questions to send back** for remarks that cannot be acted on without more detail
+   ("slide 6 is confusing": which part?).
+6. Work through them one at a time with the author, each through the loop below.
+
 ## Choosing the stage
 
 A note belongs to the **earliest** stage it changes. You propose the stage; the author confirms.

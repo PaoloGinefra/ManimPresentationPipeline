@@ -20,7 +20,10 @@ The approved outline and digest.
    - a transcript.
 
    Apply what it shows (rules in `guides/talk-scripts.md`) and record the act's measured time in
-   `3-script/readaloud.md`.
+   `3-script/readaloud.md`. Separate the author's remarks about the script ("this sentence should
+   say…") from the delivery itself before applying either; a transcript usually mixes both.
+5. Judge length against the measured pace and expansion factor (stage 0), not the word count alone.
+   Every beat or claim removed in compression goes to the outline's held list, with what it showed.
 
 ## Checkpoint
 

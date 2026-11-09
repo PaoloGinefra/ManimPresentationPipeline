@@ -152,6 +152,9 @@ From stage 4 on, the same text lives in the storyboard's `narration` fields (spi
 
 - Plan at the brief's **pace class**: slow 120, normal 135, fast 150 words per minute. Fifteen
   minutes at normal pace is roughly 2,000 words.
+- Many speakers use the script as a springboard and say more than is written. Time the talk with
+  the speaker's measured **expansion factor** (stage 0): the written script is the slot divided by it.
+  Words the speaker will unpack anyway do not need to be written out in full.
 - Budget per beat, and make the budgets sum to the slot. Run `uv run mpp script` after every
   editing pass.
 - Leave **30 to 60 seconds of slack per results section** so peaks' figures can be read in

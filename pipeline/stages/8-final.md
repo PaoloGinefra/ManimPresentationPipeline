@@ -6,7 +6,9 @@ Produce the release.
 
 1. Check that every stage is approved and every review note is fixed or declined.
 2. Check that the timed read-aloud fits the slot.
-3. Run `uv run mpp release [-v VARIANT]`. It:
+3. **Accuracy audit.** Every number on a slide and in the narration is checked against the digest:
+   same value, same unit, same condition. Every derived number has its derivation.
+4. Run `uv run mpp release [-v VARIANT]`. It:
    - refuses uncommitted changes, unapproved stages and open review notes;
    - regenerates the script and stops if it was out of date with the storyboard;
    - runs all checks;
@@ -15,7 +17,7 @@ Produce the release.
      system;
    - copies them to `releases/<variant>/vN/`, outside git;
    - tags `<variant>/vN`.
-4. Open the HTML deck and click through it once end to end.
+5. Open the HTML deck and click through it once end to end.
 
 ## Checkpoint
 

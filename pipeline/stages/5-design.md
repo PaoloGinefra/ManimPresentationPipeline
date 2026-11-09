@@ -28,6 +28,10 @@ If the brief names a house style, skip step 1.
    - the specimen: `uv run mpp specimen` renders every token (drawn by the engine) and the
      scenes in `specimen.py` onto one standalone page, `build/<variant>/specimen.html`.
 3. Check colour-blind safety and projector contrast.
+4. Reserve a fixed region for every piece of furniture the talk will use, before any beat is built:
+   headline, anchor or takeaway line, progress tracker, credits, slide number. Content never enters
+   those regions. A tracker added after the build collides with everything placed near the edge.
+   Keep furniture quiet: thin, small, low contrast for what is inactive.
 
 ## Checkpoint
 

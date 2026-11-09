@@ -34,6 +34,24 @@ The approved script, outline and digest (for reusable figures).
    storyboard. Check the times still fit, and diff it against the approved script: the words
    should not have changed on the way.
 
+## Results frames
+
+- **One claim per frame.** A frame that shows every setting of every experiment shows none.
+  The full table is a backup.
+- **Show the measurement before the number.** A small diagram of what is measured (what goes in,
+  what is compared) precedes the value; an unexplained score is not evidence for a lay audience.
+- **Choose the form from the claim**, not by habit: a count out of a whole as a pictogram, a trend as
+  a curve, a ratio as one large number, a comparison of two as two numbers side by side. Bar charts
+  at full-slide size give every value equal weight and are rarely the best choice.
+- **Name the environments before their results**, with a short look at each (a looping recording
+  is ideal). A number about a world nobody has seen does not land.
+
+## Preview before building
+
+Whenever a frame has two or more credible designs, render each as a single still with the real
+assets and real numbers, side by side, and let the author choose. Do not build a beat whose look
+is still in question: a still costs seconds, a rebuild of the following beats costs far more.
+
 ## Checkpoint
 
 `options.md` (4a), then the greybox (4b), with the skeleton and storyboard beside it.
